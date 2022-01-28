@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Vite ###
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
