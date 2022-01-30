@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <p>登录页</p>
 </template>
 
 <script lang="ts"></script>
