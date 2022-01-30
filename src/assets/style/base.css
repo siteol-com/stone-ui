@@ -1,4 +1,4 @@
-*{box-sizing:border-box;transition:all .4s ease;}
+*{box-sizing:border-box;}/*transition:all .4s ease;*/
 html,body{
   width: 100%;
   height: 100%;

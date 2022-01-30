@@ -5,7 +5,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 import appRoutes from './app'
-import MainLayout from '../layout/main.vue'
+import MainLayout from '@/layout/main.vue'
 
 // NProgress Configuration
 NProgress.configure({ showSpinner: false })
@@ -28,9 +28,9 @@ const router = createRouter({
     {
       name: 'login',
       path: '/login',
-      component: () => import('../views/base/login.vue'),
+      component: () => import('@/views/base/login.vue'),
       meta: {
-        locale: 'base.login',
+        locale: 'menu.base.login',
         needAuth: false,
       },
     },
@@ -46,7 +46,7 @@ const router = createRouter({
 })
 
 // Router Jump
-router.beforeEach(async (to: any, from: any, next: any) => {
+router.beforeEach(async (to, from, next) => {
   NProgress.start()
   // HaveToken ?
   if (false) {
