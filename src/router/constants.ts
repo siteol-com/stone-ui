@@ -9,10 +9,11 @@ export const NOT_FOUND = {
 
 export const REDIRECT_ROUTE_NAME = 'Redirect';
 
-export const DEFAULT_ROUTE_NAME = 'Workplace';
+// 默认路由地址
+export const DEFAULT_ROUTE_NAME = 'centerIndex';
 
 export const DEFAULT_ROUTE = {
-  title: 'menu.dashboard.workplace',
+  title: 'common.menu.center.index',
   name: DEFAULT_ROUTE_NAME,
-  fullPath: '/dashboard/workplace',
+  fullPath: '/center/index',
 };

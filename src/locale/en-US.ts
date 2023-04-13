@@ -26,6 +26,8 @@ import locale500 from '@/views/exception/500/locale/en-US';
 import localeUserInfo from '@/views/user/info/locale/en-US';
 import localeUserSetting from '@/views/user/setting/locale/en-US';
 
+import plat from '@/views/plat/locale/en-US';
+import common from './en-US/common'; // 公共国际化
 import localeSettings from './en-US/settings';
 
 export default {
@@ -64,4 +66,6 @@ export default {
   ...locale500,
   ...localeUserInfo,
   ...localeUserSetting,
+  ...common, // 公共国际化
+  ...plat, // 平台国际化
 };

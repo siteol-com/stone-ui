@@ -162,7 +162,7 @@ const actionSelect = async (value: any) => {
   cursor: pointer;
   height: 26px;
   display: inline-block;
-  margin: 4px;
+  margin: 4px 5px;
   background-color: var(--color-fill-1);
   border-radius: var(--border-radius-medium);
   transition: all 0.3s linear;

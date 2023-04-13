@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <div class="left-side">
+    <div v-if="type" class="left-side">
       <a-button class="nav-btn" @click="onCollapse">
         <template #icon>
           <icon-menu-fold v-if="!collapsed" :style="{ fontSize: '22px' }" />
@@ -8,8 +8,16 @@
         </template>
       </a-button>
     </div>
+    <div v-if="type" class="center-side">
+      <transition name="breadcrumb">
+        <a-breadcrumb v-if="breadList.list[0]">
+          <a-breadcrumb-item> <icon-apps /> </a-breadcrumb-item>
+          <a-breadcrumb-item v-for="(item, index) in breadList.list" :key="index">{{ $t(item.meta?.locale ? item.meta?.locale : '') }}</a-breadcrumb-item>
+        </a-breadcrumb>
+      </transition>
+    </div>
     <ul class="right-side">
-      <li>
+      <li v-if="type">
         <a-tooltip :content="$t('settings.search')">
           <a-button class="nav-btn" :shape="'circle'">
             <template #icon>
@@ -48,7 +56,7 @@
           </template>
         </a-dropdown>
       </li>
-      <li>
+      <li v-if="type">
         <a-tooltip :content="$t('settings.navbar.alerts')">
           <div class="message-box-trigger">
             <a-badge :count="9" dot>
@@ -84,9 +92,9 @@
           </a-button>
         </a-tooltip>
       </li>
-      <li>
+      <li v-if="type">
         <a-dropdown trigger="click">
-          <a-avatar :size="32" :style="{ marginRight: '8px', cursor: 'pointer' }">
+          <a-avatar :size="32" :style="{ cursor: 'pointer' }">
             <img alt="avatar" :src="avatar" />
           </a-avatar>
           <template #content>
@@ -130,22 +138,32 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, inject } from 'vue';
+import { PropType, computed, ref, reactive, inject, onUnmounted, nextTick } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import { useDark, useToggle, useFullscreen } from '@vueuse/core';
 import { useAppStore, useUserStore } from '@/store';
+import { listenerRouteChange, removeRouteListener } from '@/utils/route-listener';
+import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
 import useUser from '@/hooks/user';
-import Menu from '@/components/menu/index.vue';
 import MessageBox from '../message-box/index.vue';
 
+// 顶部导航根据入参读取
+defineProps({
+  type: {
+    type: Boolean,
+    default: true,
+  },
+});
+
 const appStore = useAppStore();
-const userStore = useUserStore();
 const { logout } = useUser();
 const { changeLocale, currentLocale } = useLocale();
 const { isFullscreen, toggle: toggleFullScreen } = useFullscreen();
 const locales = [...LOCALE_OPTIONS];
+// 用户数据
+const userStore = useUserStore();
 const avatar = computed(() => {
   return userStore.avatar;
 });
@@ -190,6 +208,20 @@ const setVisible = () => {
   localStorage.setItem('colorWeak', isColorWeak.value ? '1' : '0');
   initColorWeak();
 };
+
+// 路由切换
+const breadList = reactive({ list: [] as RouteRecordNormalized[] });
+listenerRouteChange((route: RouteLocationNormalized) => {
+  breadList.list = [];
+  // 获取路由关系
+  const { matched } = route;
+  // 延时处理
+  nextTick(() => {
+    setTimeout(() => {
+      breadList.list = matched.filter((item) => item.meta);
+    }, 500);
+  });
+}, true);
 const refBtn = ref();
 const triggerBtn = ref();
 const setPopoverVisible = () => {
@@ -216,6 +248,10 @@ const switchRoles = async () => {
   Message.success(res as string);
 };
 const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
+// 注销监听
+onUnmounted(() => {
+  removeRouteListener();
+});
 </script>
 
 <style scoped lang="less">
@@ -230,12 +266,20 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 .left-side {
   display: flex;
   align-items: center;
+  padding-left: 25px;
+  width: 60px;
+}
+
+.center-side {
+  width: calc(100% - 455px);
   padding-left: 20px;
+  display: flex;
 }
 
 .right-side {
   display: flex;
-  padding-right: 20px;
+  padding: 0 15px;
+  width: 395px;
   list-style: none;
   :deep(.locale-select) {
     border-radius: 20px;
@@ -262,6 +306,16 @@ const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
   }
   .trigger-btn {
     margin-left: 14px;
+  }
+}
+.head {
+  .navbar {
+    border-bottom: 1px solid transparent;
+    background: transparent;
+  }
+  .right-side {
+    justify-content: right;
+    width: 100%;
   }
 }
 </style>

@@ -3,6 +3,7 @@ import { REDIRECT_ROUTE_NAME } from '@/router/constants';
 
 export const DEFAULT_LAYOUT = () => import('@/layout/default-layout.vue');
 
+// 转向路由（拓展保留，暂未使用）
 export const REDIRECT_MAIN: RouteRecordRaw = {
   path: '/redirect',
   name: 'redirectWrapper',
@@ -24,8 +25,11 @@ export const REDIRECT_MAIN: RouteRecordRaw = {
   ],
 };
 
-export const NOT_FOUND_ROUTE: RouteRecordRaw = {
-  path: '/:pathMatch(.*)*',
-  name: 'notFound',
-  component: () => import('@/views/not-found/index.vue'),
-};
+// 异常路由
+export const ERROR_ROUTE: RouteRecordRaw[] = [
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/views/not-found/index.vue'),
+  },
+];

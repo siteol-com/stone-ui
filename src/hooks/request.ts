@@ -8,11 +8,7 @@ import useLoading from './loading';
 // Use the bind function to add parameters
 // example: useRequest(api.bind(null, {}))
 
-export default function useRequest<T>(
-  api: () => Promise<AxiosResponse<HttpResponse>>,
-  defaultValue = [] as unknown as T,
-  isLoading = true
-) {
+export default function useRequest<T>(api: () => Promise<AxiosResponse<HttpResponse>>, defaultValue = [] as unknown as T, isLoading = true) {
   const { loading, setLoading } = useLoading(isLoading);
   const response = ref<T>(defaultValue);
   api()

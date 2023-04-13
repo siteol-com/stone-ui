@@ -110,6 +110,7 @@ function tagResize() {
 // 左切
 function leftTab() {
   if (tagRN.value < 0) {
+    // 移动步长150px
     const waitRun = tagRN.value + 150;
     tagRN.value = waitRun > 0 ? 0 : waitRun;
   } else {
@@ -119,8 +120,10 @@ function leftTab() {
 }
 // 右切
 function rightTab() {
-  const maxRang = tagEL.value - tagL.value - 20;
+  // 因为最右侧Padding-right25px
+  const maxRang = tagEL.value - tagL.value - 25;
   if (tagRN.value > maxRang) {
+    // 移动步长150px
     const waitRun = tagRN.value - 150;
     tagRN.value = waitRun < maxRang ? maxRang : waitRun;
   } else {
@@ -175,7 +178,7 @@ onUnmounted(() => {
     transition: all 0.2s linear;
   }
   .tab-bar-btn {
-    width: 20px;
+    width: 25px;
     height: 34px;
     position: absolute;
     background-color: var(--color-bg-2);

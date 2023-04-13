@@ -9,13 +9,7 @@ import configImageminPlugin from './plugin/imagemin';
 export default mergeConfig(
   {
     mode: 'production',
-    plugins: [
-      configCompressPlugin('gzip'),
-      configVisualizerPlugin(),
-      configArcoResolverPlugin(),
-      configStyleImportPlugin(),
-      configImageminPlugin(),
-    ],
+    plugins: [configCompressPlugin('gzip'), configVisualizerPlugin(), configArcoResolverPlugin(), configStyleImportPlugin(), configImageminPlugin()],
     build: {
       rollupOptions: {
         output: {
