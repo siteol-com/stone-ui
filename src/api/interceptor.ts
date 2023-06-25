@@ -16,18 +16,21 @@ export interface HttpResponse<T = unknown> {
 if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 }
+// 超时时间（暂定100秒）
+axios.defaults.timeout = 100000;
 // 请求拦截器
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 为请求携带登陆Token
     const token = getToken();
-    if (token) {
-      // 如果没有Header，初始化一个
-      if (!config.headers) {
-        config.headers = {};
-      }
-      config.headers.Token = `${token}`;
+    const lang = localStorage.getItem('arco-locale');
+    // 如果没有Header，初始化一个
+    if (!config.headers) {
+      config.headers = {};
     }
+    config.headers.Token = `${token}`;
+    // 提交语言
+    config.headers.Lang = `${lang}`;
     return config;
   },
   (error) => {
@@ -44,7 +47,7 @@ axios.interceptors.response.use(
     const res = response.data;
     // 后端所有响应均进行了翻译处理
     // 特定响应码的处理逻辑
-    // 成功类型响应码 2 开头 如200 20100 29999
+    // 成功类型响应码 2 开头 如200 2001000 2999001
     if (res.code.indexOf('2') === 0) {
       Message.success(res.msg);
       return res;
@@ -66,6 +69,7 @@ axios.interceptors.response.use(
       });
     } else {
       // 其他错误码均为业务错误码或500系统未知异常
+      Message.error(res.msg);
     }
     return Promise.reject(new Error(res.msg || 'Error'));
   },

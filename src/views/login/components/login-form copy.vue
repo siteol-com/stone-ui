@@ -1,34 +1,14 @@
 <template>
   <div class="login-form login-form-wrapper">
     <a-form ref="loginForm" :model="userInfo" class="login-form" layout="vertical" @submit="handleSubmit">
-      <a-form-item
-        field="account"
-        :rules="[
-          {
-            required: true,
-            message: $t('login.form.account.errMsg'),
-          },
-        ]"
-        :validate-trigger="['change', 'blur']"
-        hide-label
-      >
-        <a-input v-model="userInfo.account" :placeholder="$t('login.form.account.placeholder')" allow-clear>
+      <a-form-item field="username" :rules="[{ required: true, message: $t('login.form.userName.errMsg') }]" :validate-trigger="['change', 'blur']" hide-label>
+        <a-input v-model="userInfo.username" :placeholder="$t('login.form.userName.placeholder')">
           <template #prefix>
             <icon-user />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item
-        field="password"
-        :rules="[
-          {
-            required: true,
-            message: $t('login.form.password.errMsg'),
-          },
-        ]"
-        :validate-trigger="['change', 'blur']"
-        hide-label
-      >
+      <a-form-item field="password" :rules="[{ required: true, message: $t('login.form.password.errMsg') }]" :validate-trigger="['change', 'blur']" hide-label>
         <a-input-password v-model="userInfo.password" :placeholder="$t('login.form.password.placeholder')" allow-clear>
           <template #prefix>
             <icon-lock />
@@ -42,7 +22,7 @@
           </a-checkbox>
           <a-link status="danger" :hoverable="false">{{ $t('login.form.forgetPassword') }}</a-link>
         </div>
-        <a-button type="primary" shape="round" html-type="submit" long :loading="loading">
+        <a-button type="primary" html-type="submit" long :loading="loading">
           {{ $t('login.form.login') }}
         </a-button>
       </a-space>
@@ -51,13 +31,15 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, defineProps } from 'vue';
+import { ref, reactive, computed, defineProps } from 'vue';
 import { useRouter } from 'vue-router';
+import { Message } from '@arco-design/web-vue';
 import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
+import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store';
 import { useStorage } from '@vueuse/core';
 import useLoading from '@/hooks/loading';
-import type { AuthLoginReq } from '@/api/open/auth';
+import type { LoginData } from '@/api/user';
 // 登录菜单参数读取
 const props = defineProps({
   tenantAlias: {
@@ -67,19 +49,18 @@ const props = defineProps({
 });
 // 路由跳转
 const router = useRouter();
-// 加载图标
+const { t } = useI18n();
 const { loading, setLoading } = useLoading();
-// 用户缓存数据
 const userStore = useUserStore();
 // 记住账号和密码
 const loginConfig = useStorage('login-config', {
   rememberPassword: true,
-  account: '',
+  username: '',
   password: '',
 });
 // 登陆框信息
 const userInfo = reactive({
-  account: loginConfig.value.account,
+  username: loginConfig.value.username,
   password: loginConfig.value.password,
   tenantAlias: props.tenantAlias,
 });
@@ -89,19 +70,21 @@ const handleSubmit = async ({ errors, values }: { errors: Record<string, Validat
   if (!errors) {
     setLoading(true);
     try {
-      // 提交登陆
-      await userStore.accountLogin(values as AuthLoginReq);
-      // 进入通用的驾驶舱页面
-      router.push({ name: 'center' });
+      await userStore.login(values as LoginData);
+      const { redirect, ...othersQuery } = router.currentRoute.value.query;
+      router.push({
+        name: (redirect as string) || 'Workplace',
+        query: {
+          ...othersQuery,
+        },
+      });
+      Message.success(t('login.form.login.success'));
       const { rememberPassword } = loginConfig.value;
-      // 密码记忆
-      if (rememberPassword) {
-        loginConfig.value.account = values.account;
-        loginConfig.value.password = values.password;
-      } else {
-        loginConfig.value.account = '';
-        loginConfig.value.password = '';
-      }
+      const { username, password } = values;
+      // 实际生产环境需要进行加密存储。
+      // The actual production environment requires encrypted storage.
+      loginConfig.value.username = rememberPassword ? username : '';
+      loginConfig.value.password = rememberPassword ? password : '';
     } catch (err) {
       // DoNothing CommonPopUp
     } finally {
@@ -121,9 +104,19 @@ const setRememberPassword = (value: boolean) => {
     width: 100%;
   }
 
+  &-error-msg {
+    height: 32px;
+    color: rgb(var(--red-6));
+    line-height: 32px;
+  }
+
   &-password-actions {
     display: flex;
     justify-content: space-between;
+  }
+
+  &-register-btn {
+    color: var(--color-text-3) !important;
   }
 }
 </style>

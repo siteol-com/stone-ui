@@ -1,25 +1,19 @@
 import { DirectiveBinding } from 'vue';
 import { useUserStore } from '@/store';
 
+// 权限检查指令 替换为字符串指令
 function checkPermission(el: HTMLElement, binding: DirectiveBinding) {
   const { value } = binding;
   const userStore = useUserStore();
-  const { role } = userStore;
-
-  if (Array.isArray(value)) {
-    if (value.length > 0) {
-      const permissionValues = value;
-
-      const hasPermission = permissionValues.includes(role);
-      if (!hasPermission && el.parentNode) {
-        el.parentNode.removeChild(el);
-      }
-    }
-  } else {
-    throw new Error(`need roles! Like v-permission="['admin','user']"`);
+  const { permissions } = userStore;
+  // 检查用户是否具备这个元素的访问权限
+  const hasPermission = permissions.includes(value);
+  if (!hasPermission && el.parentNode) {
+    el.parentNode.removeChild(el);
   }
 }
 
+// 执行时机，初始化或更新时
 export default {
   mounted(el: HTMLElement, binding: DirectiveBinding) {
     checkPermission(el, binding);

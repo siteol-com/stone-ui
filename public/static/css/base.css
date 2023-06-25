@@ -1,57 +1,23 @@
-.head{
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-.container {
-  padding: 25px;
-}
-
+html, body{height: 100vh;width: 100vw;overflow: hidden;}
+.head{position:fixed;top:0;left:0;width:100%}
+.container{padding:25px}
 /* fade */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.28s;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
+.fade-enter-active,.fade-leave-active{transition:opacity 0.28s}
+.fade-enter,.fade-leave-active{opacity:0}
 /* fade-transform vue3 */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all 0.5s;
-}
-
-.fade-transform-enter-from {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-.fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-
+.fade-transform-leave-active,.fade-transform-enter-active{transition:all 0.5s}
+.fade-transform-enter-from{opacity:0;transform:translateX(30px)}
+.fade-transform-leave-to{opacity:0;transform:translateX(-30px)}
 /* breadcrumb transition */
-.breadcrumb-enter-active,
-.breadcrumb-leave-active {
-  transition: all .5s;
-}
-
-.breadcrumb-enter-from{
-  opacity: 0;
-  transform: translateX(-20px);
-}
-.breadcrumb-leave-to {
-  opacity: 0;
-  transform: translateX(20px);
-}
+.breadcrumb-enter-active,.breadcrumb-leave-active{transition:all .5s}
+.breadcrumb-enter-from{opacity:0;transform:translateX(-20px)}
+.breadcrumb-leave-to{opacity:0;transform:translateX(20px)}
 /* 布灵闪的动画效果 */
-@keyframes bili{
-  25%{transform:scale(1.2);opacity:0.2}
-  50%{transform:scale(1.6);opacity:0}
- 75%{transform:scale(1);opacity:0}
-  100%{transform:scale(1);opacity:0.4}
-}
+@keyframes bili{25%{transform:scale(1.2);opacity:0.2}
+50%{transform:scale(1.4);opacity:0}
+75%{transform:scale(1);opacity:0}
+100%{transform:scale(1);opacity:0.4}}
+/* 轻量登陆部分特殊样式 */
+.light .arco-input-wrapper{background-color:rgba(255,255,255,0.4)}
+@keyframes spin{50%{transform:translate(5%,0)}}
+@keyframes hpin{50%{transform:scale(1.1) skewY(5deg)}}

@@ -25,7 +25,13 @@ const router = createRouter({
     {
       path: '/login/light/:tenantAlias', // 登录模板（light）轻量
       name: 'loginLight',
-      component: () => import('@/views/login/index.vue'),
+      component: () => import('@/views/login/light.vue'),
+      meta: { requiresAuth: false },
+    },
+    {
+      path: '/login/sider/:tenantAlias', // 登录模板（sider）侧边
+      name: 'loginSider',
+      component: () => import('@/views/login/sider.vue'),
       meta: { requiresAuth: false },
     },
     ...appRoutes, // 加载子模块路由
@@ -36,7 +42,8 @@ const router = createRouter({
     return { top: 0 };
   },
 });
-// 路由授权体
+
+// 路由处理中间件
 createRouteGuard(router);
 
 export default router;
