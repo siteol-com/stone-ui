@@ -27,6 +27,7 @@ import localeUserInfo from '@/views/user/info/locale/zh-CN';
 import localeUserSetting from '@/views/user/setting/locale/zh-CN';
 import plat from '@/views/plat/locale/zh-CN'; // 平台国际化
 import common from './zh-CN/common'; // 公共国际化
+import menu from './zh-CN/menu'; // 菜单国际化
 
 import localeSettings from './zh-CN/settings';
 
@@ -68,4 +69,5 @@ export default {
   ...localeUserSetting,
   ...common, // 公共国际化
   ...plat, // 平台国际化
+  ...menu, // 菜单国际化
 };

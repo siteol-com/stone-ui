@@ -25,9 +25,10 @@ import locale500 from '@/views/exception/500/locale/en-US';
 
 import localeUserInfo from '@/views/user/info/locale/en-US';
 import localeUserSetting from '@/views/user/setting/locale/en-US';
-
-import plat from '@/views/plat/locale/en-US';
+import plat from '@/views/plat/locale/en-US'; // 平台国际化
 import common from './en-US/common'; // 公共国际化
+import menu from './en-US/menu'; // 菜单国际化
+
 import localeSettings from './en-US/settings';
 
 export default {
@@ -68,4 +69,5 @@ export default {
   ...localeUserSetting,
   ...common, // 公共国际化
   ...plat, // 平台国际化
+  ...menu, // 菜单国际化
 };

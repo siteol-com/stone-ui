@@ -20,7 +20,7 @@ import NavBar from '@/components/navbar/index.vue';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAppStore } from '@/store';
-import { getOpenTenant } from '@/api/open/tenant';
+import { openTenantGet } from '@/api/open/tenant';
 
 const appStore = useAppStore();
 const router = useRouter();
@@ -30,18 +30,19 @@ const theme = computed(() => {
 });
 // 提示语 欢迎访问Stone授权基座
 const tips = ref('index.welcome');
-function go() {
+function init() {
   setTimeout(async () => {
     // 启动分析处理
     // 尝试获取租户缓存数据，获取到跳转
-    const tenantAlias = localStorage.getItem('tenantAlias');
-    if (tenantAlias) {
+    const tenantStr = localStorage.getItem('tenant');
+    if (tenantStr) {
+      const tenant = JSON.parse(tenantStr);
       // 提示语 正在为您检查最近访问租户的状态
       tips.value = 'index.tips.cached';
       try {
-        const res = await getOpenTenant(tenantAlias);
+        const res = await openTenantGet(tenant.alias);
         // 获取租户成功，即将跳转到租户登陆页面
-        localStorage.setItem('tenantAlias', res.data.alias);
+        localStorage.setItem('tenant', JSON.stringify(res.data));
         setTimeout(() => {
           tips.value = 'index.tips.go';
           setTimeout(() => {
@@ -61,7 +62,7 @@ function go() {
 
 // 界面渲染完成启动
 onMounted(() => {
-  go();
+  init();
 });
 </script>
 
@@ -82,7 +83,7 @@ onMounted(() => {
     }
     .logo {
       position: relative;
-      background: url(/static/img/logo.png);
+      background: url(/static/img/logo);
       background-size: 100% 100%;
       width: 300px;
       height: 80px;
@@ -98,7 +99,7 @@ onMounted(() => {
       }
     }
     .logo.dark {
-      background: url(/static/img/logo-dark.png);
+      background: url(/static/img/logo-dark);
       background-size: 100% 100%;
     }
     .info {

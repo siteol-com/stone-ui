@@ -1,10 +1,18 @@
 <template>
   <a-dropdown trigger="contextMenu" :popup-max-height="false" @select="actionSelect">
-    <span class="arco-tag arco-tag-size-medium arco-tag-checked tab-bar-item" :class="{ 'link-activated': itemData.fullPath === $route.fullPath }" @click="goto(itemData)">
+    <span
+      class="arco-tag arco-tag-size-medium arco-tag-checked tab-bar-item"
+      :class="{ 'link-activated': itemData.fullPath === $route.fullPath }"
+      @click="goto(itemData)"
+    >
       <span class="tag-link">
         {{ $t(itemData.title) }}
       </span>
-      <span v-if="index > 0" class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn" @click.stop="tagClose(itemData, index)">
+      <span
+        v-if="index > 0"
+        class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
+        @click.stop="tagClose(itemData, index)"
+      >
         <icon-close />
       </span>
     </span>

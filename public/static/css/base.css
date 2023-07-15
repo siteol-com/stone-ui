@@ -1,17 +1,17 @@
 html, body{height: 100vh;width: 100vw;overflow: hidden;}
 .head{position:fixed;top:0;left:0;width:100%}
-.container{padding:25px}
+.container{padding:25px;height: 100%}
 /* fade */
 .fade-enter-active,.fade-leave-active{transition:opacity 0.28s}
 .fade-enter,.fade-leave-active{opacity:0}
 /* fade-transform vue3 */
 .fade-transform-leave-active,.fade-transform-enter-active{transition:all 0.5s}
-.fade-transform-enter-from{opacity:0;transform:translateX(30px)}
-.fade-transform-leave-to{opacity:0;transform:translateX(-30px)}
+.fade-transform-enter-from{opacity:0;transform:translateX(-30px)}
+.fade-transform-leave-to{opacity:0;transform:translateX(30px)}
 /* breadcrumb transition */
 .breadcrumb-enter-active,.breadcrumb-leave-active{transition:all .5s}
-.breadcrumb-enter-from{opacity:0;transform:translateX(-20px)}
-.breadcrumb-leave-to{opacity:0;transform:translateX(20px)}
+.breadcrumb-enter-from{opacity:0;transform:translateX(-15px)}
+.breadcrumb-leave-to{opacity:0;transform:translateX(15px)}
 /* 布灵闪的动画效果 */
 @keyframes bili{25%{transform:scale(1.2);opacity:0.2}
 50%{transform:scale(1.4);opacity:0}
@@ -19,5 +19,20 @@ html, body{height: 100vh;width: 100vw;overflow: hidden;}
 100%{transform:scale(1);opacity:0.4}}
 /* 轻量登陆部分特殊样式 */
 .light .arco-input-wrapper{background-color:rgba(255,255,255,0.4)}
-@keyframes spin{50%{transform:translate(5%,0)}}
-@keyframes hpin{50%{transform:scale(1.1) skewY(5deg)}}
+@keyframes spin{50%{transform:translate(10%,0)}}
+@keyframes hpin{50%{transform:scale(1.1) skewY(-2deg)}}
+/* 顶部进度条 */
+#nprogress .bar {background:rgb(253,133,58)!important;z-index:899!important}
+#nprogress .peg {box-shadow: 0 0 10px rgb(255, 0, 0), 0 0 5px rgb(78, 221, 34)!important}
+/* 各类宽度 */
+.m10s{margin: 10px 0;}
+.c500{width: 500px!important;}
+.c600{width: 600px!important;}
+.formbtn{margin-top: 10px;}
+.formSpan{padding: 5px 12px;
+    line-height: 20px;
+    border: 1px solid var(--color-fill-3);
+    color: var(--color-text-1);
+    border-radius:2px;
+    width: 100%;
+}

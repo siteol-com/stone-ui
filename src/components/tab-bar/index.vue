@@ -4,7 +4,13 @@
       <icon-left />
     </div>
     <div class="tab-bar-contant" :style="{ left: tagRN + 'px' }">
-      <tab-item v-for="(tag, index) in tagList" :key="tag.fullPath" :index="index" :item-data="tag" @set-tag-run="setTagRun" />
+      <tab-item
+        v-for="(tag, index) in tagList"
+        :key="tag.fullPath"
+        :index="index"
+        :item-data="tag"
+        @set-tag-run="setTagRun"
+      />
     </div>
     <div class="tab-bar-btn tab-bar-right" :class="{ tabBarRShow: tagBR }" @click="rightTab()">
       <icon-right />
@@ -163,6 +169,7 @@ onMounted(() => {
 // 注销监听
 onUnmounted(() => {
   window.removeEventListener('resize', tagResize);
+  tabBarStore.resetTabList();
   removeRouteListener();
 });
 </script>

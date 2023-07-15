@@ -37,7 +37,11 @@
       </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
-          <a-checkbox checked="rememberPassword" :model-value="loginConfig.rememberPassword" @change="setRememberPassword as any">
+          <a-checkbox
+            checked="rememberPassword"
+            :model-value="loginConfig.rememberPassword"
+            @change="setRememberPassword as any"
+          >
             {{ $t('login.form.rememberPassword') }}
           </a-checkbox>
           <a-link status="danger" :hoverable="false">{{ $t('login.form.forgetPassword') }}</a-link>
@@ -53,11 +57,11 @@
 <script lang="ts" setup>
 import { reactive, defineProps } from 'vue';
 import { useRouter } from 'vue-router';
-import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
 import { useUserStore } from '@/store';
 import { useStorage } from '@vueuse/core';
 import useLoading from '@/hooks/loading';
 import type { AuthLoginReq } from '@/api/open/auth';
+
 // 登录菜单参数读取
 const props = defineProps({
   tenantAlias: {
@@ -84,15 +88,13 @@ const userInfo = reactive({
   tenantAlias: props.tenantAlias,
 });
 // 提交登陆
-const handleSubmit = async ({ errors, values }: { errors: Record<string, ValidatedError> | undefined; values: Record<string, any> }) => {
+const handleSubmit = async ({ errors, values }: { errors: any; values: any }) => {
   if (loading.value) return;
   if (!errors) {
     setLoading(true);
     try {
       // 提交登陆
       await userStore.accountLogin(values as AuthLoginReq);
-      // 进入通用的驾驶舱页面
-      router.push({ name: 'center' });
       const { rememberPassword } = loginConfig.value;
       // 密码记忆
       if (rememberPassword) {
@@ -102,10 +104,14 @@ const handleSubmit = async ({ errors, values }: { errors: Record<string, Validat
         loginConfig.value.account = '';
         loginConfig.value.password = '';
       }
+      // 进入通用的驾驶舱页面
+      router.push({ path: '/center' });
     } catch (err) {
       // DoNothing CommonPopUp
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     }
   }
 };

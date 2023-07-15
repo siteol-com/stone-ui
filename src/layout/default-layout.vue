@@ -2,7 +2,9 @@
   <a-layout class="layout" :class="{ mobile: appStore.hideMenu }">
     <a-layout-sider class="layout-sider" breakpoint="xl" :collapsed="collapsed" :collapsible="true" :width="menuWidth" :hide-trigger="true" @collapse="setCollapsed">
       <div class="logo-wrapper" :class="{ collapsed: collapsed }">
-        <div class="logo" :class="{ dark: theme === 'dark' }" />
+        <div class="logo">
+          <img :src="collapsed ? tenant.icon : tenant.logo + (theme === 'dark' ? '-dark' : '')" />
+        </div>
       </div>
       <div class="menu-wrapper">
         <Menu />
@@ -11,7 +13,7 @@
     <a-layout class="layout-content" :style="paddingStyle">
       <NavBar />
       <TabBar />
-      <a-layout-content>
+      <a-layout-content class="s-content">
         <PageLayout />
         <Footer v-if="footer" />
       </a-layout-content>
@@ -29,6 +31,8 @@ import Footer from '@/components/footer/index.vue';
 import TabBar from '@/components/tab-bar/index.vue';
 import usePermission from '@/hooks/permission';
 import useResponsive from '@/hooks/responsive';
+import { Message } from '@arco-design/web-vue';
+import i18n from '@/locale';
 import PageLayout from './page-layout.vue';
 
 const isInit = ref(false);
@@ -78,8 +82,21 @@ const drawerCancel = () => {
 provide('toggleDrawerMenu', () => {
   drawerVisible.value = !drawerVisible.value;
 });
+// 租户信息
+const tenant: any = ref({});
+// 初始化函数
+function init() {
+  // 尝试获取租户缓存数据，获取到跳转
+  const tenantStr = localStorage.getItem('tenant');
+  if (tenantStr) {
+    tenant.value = JSON.parse(tenantStr);
+  } else {
+    Message.error(i18n.global.t('center.tips.out'));
+  }
+}
 onMounted(() => {
   isInit.value = true;
+  init();
 });
 </script>
 
@@ -96,12 +113,12 @@ onMounted(() => {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 900;
   height: 100%;
-  transition: all 0.2s linear;
+  transition: all 0.2s linear; //ease-in-out
   * {
     /*transition: all 0.3s cubic-bezier(0, 1, 0, 1);*/
-    transition: all 0.2s linear;
+    transition: all 0.2s linear; //linear;
   }
   &::after {
     position: absolute;
@@ -126,21 +143,18 @@ onMounted(() => {
   overflow: hidden;
   background-color: var(--color-bg-2);
   .logo {
-    background: url(/static/img/logo.png);
-    background-size: 100% 100%;
     width: 165px;
     height: 46px;
-  }
-  .logo.dark {
-    background: url(/static/img/logo-dark.png);
-    background-size: 100% 100%;
+    img {
+      height: 100%;
+    }
   }
 }
 .logo-wrapper.collapsed {
-  padding: 14px 13px;
+  padding: 14px 9px;
   .logo {
     height: 32px;
-    width: 120px;
+    width: 32px;
   }
 }
 
@@ -176,17 +190,7 @@ onMounted(() => {
   .arco-layout-content {
     height: calc(100vh - 94px);
     position: relative;
-    overflow: auto;
-  }
-  .arco-layout-content::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  .arco-layout-content::-webkit-scrollbar-thumb {
-    background-color: var(--color-fill-4);
-  }
-  .arco-layout-content::-webkit-scrollbar-track {
-    background-color: transparent;
+    overflow: hidden auto;
   }
 }
 </style>

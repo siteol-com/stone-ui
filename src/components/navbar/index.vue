@@ -138,7 +138,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, ref, reactive, inject, onUnmounted, nextTick } from 'vue';
+import { computed, ref, reactive, inject, onUnmounted, nextTick } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import { useDark, useToggle, useFullscreen } from '@vueuse/core';
 import { useAppStore, useUserStore } from '@/store';
@@ -150,7 +150,7 @@ import useUser from '@/hooks/user';
 import MessageBox from '../message-box/index.vue';
 
 // 顶部导航根据入参读取
-defineProps({
+const props = defineProps({
   type: {
     type: Boolean,
     default: true,
@@ -211,17 +211,20 @@ const setVisible = () => {
 
 // 路由切换
 const breadList = reactive({ list: [] as RouteRecordNormalized[] });
-listenerRouteChange((route: RouteLocationNormalized) => {
-  breadList.list = [];
-  // 获取路由关系
-  const { matched } = route;
-  // 延时处理
-  nextTick(() => {
-    setTimeout(() => {
-      breadList.list = matched.filter((item) => item.meta);
-    }, 500);
-  });
-}, true);
+if (props.type) {
+  listenerRouteChange((route: RouteLocationNormalized) => {
+    breadList.list = [];
+    // 获取路由关系
+    const { matched } = route;
+    // 延时处理
+    nextTick(() => {
+      setTimeout(() => {
+        breadList.list = matched.filter((item) => item.meta);
+      }, 500);
+    });
+  }, true);
+}
+
 const refBtn = ref();
 const triggerBtn = ref();
 const setPopoverVisible = () => {
@@ -247,10 +250,13 @@ const switchRoles = async () => {
   const res = await userStore.switchRoles();
   Message.success(res as string);
 };
-const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
+// const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 // 注销监听
 onUnmounted(() => {
-  removeRouteListener();
+  //
+  if (props.type) {
+    removeRouteListener();
+  }
 });
 </script>
 

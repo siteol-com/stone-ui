@@ -15,10 +15,7 @@ export default {
   'searchTable.form.status': '状态',
   'searchTable.form.status.online': '已上线',
   'searchTable.form.status.offline': '已下线',
-  'searchTable.form.search': '查询',
-  'searchTable.form.reset': '重置',
-  'searchTable.form.selectDefault': '全部',
-  'searchTable.operation.create': '新建',
+
   'searchTable.operation.import': '批量导入',
   'searchTable.operation.download': '下载',
   // columns
@@ -30,8 +27,7 @@ export default {
   'searchTable.columns.count': '内容量',
   'searchTable.columns.createdTime': '创建时间',
   'searchTable.columns.status': '状态',
-  'searchTable.columns.operations': '操作',
-  'searchTable.columns.operations.view': '查看',
+  
 
   // size
   'searchTable.size.mini': '迷你',

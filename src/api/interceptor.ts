@@ -10,6 +10,7 @@ export interface HttpResponse<T = unknown> {
   code: string; // 响应码
   msg: string; // 响应文言
   data: T; // 响应数据
+  unPop: boolean; // 是否是静默Pop
 }
 
 // 绑定请求URL
@@ -49,7 +50,10 @@ axios.interceptors.response.use(
     // 特定响应码的处理逻辑
     // 成功类型响应码 2 开头 如200 2001000 2999001
     if (res.code.indexOf('2') === 0) {
-      Message.success(res.msg);
+      // 成功是判断是否是静默Pop
+      if (!res.unPop) {
+        Message.success(res.msg);
+      }
       return res;
     }
     // 尚未登陆，或没有权限，自动登出浏览器，前往登陆页

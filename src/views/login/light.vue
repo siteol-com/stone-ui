@@ -31,7 +31,7 @@ import Footer from '@/components/footer/index.vue';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAppStore } from '@/store';
-import { getOpenTenant } from '@/api/open/tenant';
+import { openTenantGet } from '@/api/open/tenant';
 import LoginForm from './components/login-form.vue';
 
 const router = useRouter();
@@ -48,13 +48,13 @@ const tenant: any = ref({});
 async function getTenant() {
   const { tenantAlias } = router.currentRoute.value.params;
   try {
-    const res = await getOpenTenant(tenantAlias as string);
+    const res = await openTenantGet(tenantAlias as string);
     // 检证登陆模板
     if (res.data.theme === 'light') {
       // 租户对象赋值
       tenant.value = res.data;
       // 获取租户成功，即将跳转到租户登陆页面
-      localStorage.setItem('tenantAlias', tenant.value.alias);
+      localStorage.setItem('tenant', JSON.stringify(tenant.value));
     } else {
       errMsg.value = 'login.tips.theme';
       setTimeout(() => {
@@ -146,15 +146,15 @@ onMounted(() => {
     display: block;
     position: relative;
     width: calc(100vw + 50px);
-    height: calc(100vh - 280px);
+    height: 500px;
     overflow: hidden;
     opacity: 0;
     left: -25px;
     top: -50vh;
     margin: 0;
     padding: 0;
-    transform: skewY(5deg);
-    animation: hpin 10s ease-in-out infinite;
+    transform: skewY(2deg);
+    animation: hpin 20s ease-in-out infinite;
     background-image: linear-gradient(-45deg, #fd853a, #ffc692);
   }
 
@@ -162,13 +162,10 @@ onMounted(() => {
     position: absolute;
     width: 33%;
     height: 33.33%;
-    left: -4%;
-    top: 102%;
+    left: 33%;
+    top: 33%;
     background-image: linear-gradient(95deg, #fd853a, #ffc692);
-    animation: spin 4s ease-in-out infinite;
-  }
-  .line li:nth-child(2) {
-    left: 64%;
+    animation: spin 7s ease-in-out infinite;
   }
   .footer {
     position: fixed;
@@ -179,17 +176,19 @@ onMounted(() => {
 
 .light.load {
   .line {
-    opacity: 0.85;
-    top: 117px;
+    opacity: 0.9;
+    top: calc(50vh - 270px);
   }
 }
 .light.lineIn {
   .line li {
     width: 33%;
     height: 33.33%;
+    left: -4%;
     top: 0%;
   }
   .line li:nth-child(2) {
+    left: 64%;
     top: 33%;
   }
   .line li:nth-child(3) {

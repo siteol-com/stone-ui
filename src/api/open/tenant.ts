@@ -9,6 +9,6 @@ export interface OpenTenantRes {
 }
 
 // 获取开放租户信息
-export function getOpenTenant(tenantAlias: string) {
+export function openTenantGet(tenantAlias: string) {
   return axios.post<OpenTenantRes>('/open/tenant/get', { tenantAlias });
 }

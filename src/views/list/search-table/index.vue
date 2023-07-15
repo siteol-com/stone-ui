@@ -18,12 +18,12 @@
               </a-col>
               <a-col :span="8">
                 <a-form-item field="contentType" :label="$t('searchTable.form.contentType')">
-                  <a-select v-model="formModel.contentType" :options="contentTypeOptions" :placeholder="$t('searchTable.form.selectDefault')" />
+                  <a-select v-model="formModel.contentType" :options="contentTypeOptions" :placeholder="$t('common.select.all')" />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item field="filterType" :label="$t('searchTable.form.filterType')">
-                  <a-select v-model="formModel.filterType" :options="filterTypeOptions" :placeholder="$t('searchTable.form.selectDefault')" />
+                  <a-select v-model="formModel.filterType" :options="filterTypeOptions" :placeholder="$t('common.select.all')" />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
@@ -33,7 +33,7 @@
               </a-col>
               <a-col :span="8">
                 <a-form-item field="status" :label="$t('searchTable.form.status')">
-                  <a-select v-model="formModel.status" :options="statusOptions" :placeholder="$t('searchTable.form.selectDefault')" />
+                  <a-select v-model="formModel.status" :options="statusOptions" :placeholder="$t('common.select.all')" />
                 </a-form-item>
               </a-col>
             </a-row>
@@ -46,13 +46,13 @@
               <template #icon>
                 <icon-search />
               </template>
-              {{ $t('searchTable.form.search') }}
+              {{ $t('common.button.search') }}
             </a-button>
             <a-button @click="reset">
               <template #icon>
                 <icon-refresh />
               </template>
-              {{ $t('searchTable.form.reset') }}
+              {{ $t('common.button.reset') }}
             </a-button>
           </a-space>
         </a-col>
@@ -65,7 +65,7 @@
               <template #icon>
                 <icon-plus />
               </template>
-              {{ $t('searchTable.operation.create') }}
+              {{ $t('common.button.create') }}
             </a-button>
             <a-upload action="/">
               <template #upload-button>
@@ -146,7 +146,7 @@
         </template>
         <template #operations>
           <a-button v-permission="['admin']" type="text" size="small">
-            {{ $t('searchTable.columns.operations.view') }}
+            {{ $t('common.button.view') }}
           </a-button>
         </template>
       </a-table>
@@ -249,7 +249,7 @@ const columns = computed<TableColumnData[]>(() => [
     slotName: 'status',
   },
   {
-    title: t('searchTable.columns.operations'),
+    title: t('common.table.oper'),
     dataIndex: 'operations',
     slotName: 'operations',
     fixed: 'right',
@@ -374,7 +374,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-
 :deep(.arco-table-th) {
   &:last-child {
     .arco-table-th-item-title {
