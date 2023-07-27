@@ -3,73 +3,76 @@
     <a-col :span="12">
       <a-spin :loading="loading">
         <a-form
-          ref="routerMod"
+          ref="responseMod"
+          :loading="loading"
           :model="formData"
           :label-col-props="{ span: 6 }"
           :wrapper-col-props="{ span: 18 }"
           @submit="handleSubmit"
         >
+          <a-form-item field="code" :label="$t('plat.response.code')">
+            <template #extra>
+              <div>{{ $t('plat.response.code.tips') }}</div>
+            </template>
+            <span class="formSpan">{{ formData.code }}</span>
+          </a-form-item>
+
+          <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
+            <template #extra>
+              <div>{{ $t('plat.response.serviceCode.tips') }}</div>
+            </template>
+            <span class="formSpan">{{ dictMap.serviceCode[formData.serviceCode] }}</span>
+          </a-form-item>
+
+          <a-form-item field="type" :label="$t('plat.response.type')">
+            <template #extra>
+              <div>{{ $t('plat.response.type.tips') }}</div>
+            </template>
+            <span class="formSpan">{{ dictMap.responseType[formData.type] }}</span>
+          </a-form-item>
+
           <a-form-item
-            field="name"
-            :label="$t('plat.router.name')"
+            field="remark"
+            :label="$t('plat.response.remark')"
             :rules="[{ required: true, message: $t('common.rule.required') }]"
           >
             <a-input
-              v-model="formData.name"
-              :max-length="32"
-              allow-clear
-              show-word-limit
-              :placeholder="$t('plat.router.name.place')"
-            />
-          </a-form-item>
-          <a-form-item
-            field="url"
-            :label="$t('plat.router.url')"
-            :rules="[
-              { required: true, message: $t('common.rule.required') },
-              {
-                match: /^(\/)[a-z0-9\/]*$/,
-                message: $t('plat.router.url.format'),
-              },
-            ]"
-          >
-            <a-input
-              v-model="formData.url"
+              v-model="formData.remark"
               :max-length="64"
               allow-clear
               show-word-limit
-              :placeholder="$t('plat.router.url.place')"
+              :placeholder="$t('plat.response.remark.place')"
             />
           </a-form-item>
+
           <a-form-item
-            field="serviceCode"
-            :label="$t('plat.serviceCode')"
+            field="zhCn"
+            :label="$t('plat.response.zhCn')"
             :rules="[{ required: true, message: $t('common.rule.required') }]"
           >
-            <a-select
-              v-model="formData.serviceCode"
-              :options="dict.serviceCode"
+            <a-input
+              v-model="formData.zhCn"
+              :max-length="128"
               allow-clear
-              allow-search
-              :placeholder="$t('common.select.all')"
+              show-word-limit
+              :placeholder="$t('plat.response.zhCn.place')"
             />
           </a-form-item>
+
           <a-form-item
-            field="type"
-            :label="$t('plat.router.type')"
+            field="enUs"
+            :label="$t('plat.response.enUs')"
             :rules="[{ required: true, message: $t('common.rule.required') }]"
           >
-            <template #extra>
-              <div>{{ $t('plat.router.type.tips') }}</div>
-            </template>
-            <a-select
-              v-model="formData.type"
-              :options="dict.routerType"
+            <a-input
+              v-model="formData.enUs"
+              :max-length="128"
               allow-clear
-              allow-search
-              :placeholder="$t('common.select.all')"
+              show-word-limit
+              :placeholder="$t('plat.response.enUs.place')"
             />
           </a-form-item>
+
           <a-form-item class="formbtn">
             <a-space>
               <a-button type="primary" html-type="submit" :loading="loading">
@@ -90,11 +93,11 @@
 import { onMounted } from 'vue';
 import useLoading from '@/hooks/loading';
 import type { PopUp } from '@/hooks/popup';
-import { routerInit, routerEdit, routerGet } from '@/api/plat/router';
+import { ResponseInit, responseEdit, responseGet } from '@/api/plat/response';
 // 加载中变量
 const { loading, setLoading } = useLoading(false);
 // 表单数据初始化
-const formData = routerInit();
+const formData = ResponseInit();
 // 顶部导航根据入参读取
 const props = defineProps({
   dict: {
@@ -102,6 +105,15 @@ const props = defineProps({
     required: true,
     default: () => {
       return {};
+    },
+  },
+  dictMap: {
+    type: Object,
+    default: () => {
+      return {
+        serviceCode: {} as any,
+        responseType: {} as any,
+      };
     },
   },
   popup: {
@@ -117,10 +129,9 @@ const props = defineProps({
   },
 });
 // 提交查询
-async function getRouter() {
-  setLoading(true);
+async function getresponse() {
   try {
-    const res = await routerGet(props.popup.itemId);
+    const res = await responseGet(props.popup.itemId);
     formData.value = res.data;
   } catch (err) {
     // DoNothing CommonPopUp
@@ -134,7 +145,7 @@ const handleSubmit = async ({ errors, values }: { errors: any; values: any }) =>
   if (!errors) {
     setLoading(true);
     try {
-      await routerEdit(values);
+      await responseEdit(values);
       props.popup.closePop();
       props.success();
     } catch (err) {
@@ -146,6 +157,6 @@ const handleSubmit = async ({ errors, values }: { errors: any; values: any }) =>
 };
 // 页面渲染
 onMounted(() => {
-  getRouter();
+  getresponse();
 });
 </script>

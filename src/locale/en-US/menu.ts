@@ -8,5 +8,5 @@ export default {
   'menu.plat.tenant': 'Tenant',
   'menu.plat.permission': 'Permission',
   'menu.plat.router': 'Router',
-  'menu.plat.responseCode': 'Response code',
+  'menu.plat.response': 'Response code',
 };

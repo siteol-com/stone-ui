@@ -3,20 +3,37 @@
     <a-col :span="12">
       <a-spin :loading="loading">
         <a-form class="form" :model="formData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }">
-          <a-form-item field="name" :label="$t('plat.router.name')">
-            <span class="formSpan">{{ formData.name }}</span>
+          <a-form-item field="code" :label="$t('plat.response.code')">
+            <template #extra>
+              <div>{{ $t('plat.response.code.tips') }}</div>
+            </template>
+            <span class="formSpan">{{ formData.code }}</span>
           </a-form-item>
-          <a-form-item field="url" :label="$t('plat.router.url')">
-            <span class="formSpan">{{ formData.url }}</span>
-          </a-form-item>
+
           <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
+            <template #extra>
+              <div>{{ $t('plat.response.serviceCode.tips') }}</div>
+            </template>
             <span class="formSpan">{{ dictMap.serviceCode[formData.serviceCode] }}</span>
           </a-form-item>
-          <a-form-item field="type" :label="$t('plat.router.type')">
-            <span class="formSpan">{{ dictMap.routerType[formData.type] }}</span>
+
+          <a-form-item field="type" :label="$t('plat.response.type')">
             <template #extra>
-              <div>{{ $t('plat.router.type.tips') }}</div>
+              <div>{{ $t('plat.response.type.tips') }}</div>
             </template>
+            <span class="formSpan">{{ dictMap.responseType[formData.type] }}</span>
+          </a-form-item>
+
+          <a-form-item field="remark" :label="$t('plat.response.remark')">
+            <span class="formSpan">{{ formData.remark }}</span>
+          </a-form-item>
+
+          <a-form-item field="zhCn" :label="$t('plat.response.zhCn')">
+            <span class="formSpan">{{ formData.zhCn }}</span>
+          </a-form-item>
+
+          <a-form-item field="enUs" :label="$t('plat.response.enUs')">
+            <span class="formSpan">{{ formData.enUs }}</span>
           </a-form-item>
         </a-form>
       </a-spin>
@@ -27,7 +44,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import useLoading from '@/hooks/loading';
-import { routerGet } from '@/api/plat/router';
+import { responseGet } from '@/api/plat/response';
 import { PopUp } from '@/hooks/popup';
 // 加载中变量
 const { loading, setLoading } = useLoading(true);
@@ -38,7 +55,7 @@ const props = defineProps({
     default: () => {
       return {
         serviceCode: {} as any,
-        routerType: {} as any,
+        responseType: {} as any,
       };
     },
   },
@@ -53,9 +70,9 @@ const props = defineProps({
 // 查询数据
 const formData = ref<any>({});
 // 提交查询
-async function getRouter() {
+async function getresponse() {
   try {
-    const res = await routerGet(props.popup.itemId);
+    const res = await responseGet(props.popup.itemId);
     formData.value = res.data;
   } catch (err) {
     // DoNothing CommonPopUp
@@ -66,6 +83,6 @@ async function getRouter() {
 
 // 页面渲染
 onMounted(() => {
-  getRouter();
+  getresponse();
 });
 </script>

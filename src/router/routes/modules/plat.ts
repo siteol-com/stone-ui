@@ -45,10 +45,10 @@ const PLAT: AppRouteRecordRaw = {
       meta: { locale: 'menu.plat.router', requiresAuth: false },
     },
     {
-      path: 'responseCode', // 响应码
-      name: 'platResponseCode',
-      component: () => import('@/views/plat/responseCode/index.vue'),
-      meta: { locale: 'menu.plat.responseCode', requiresAuth: false },
+      path: 'response', // 响应码
+      name: 'platResponse',
+      component: () => import('@/views/plat/response/index.vue'),
+      meta: { locale: 'menu.plat.response', requiresAuth: false },
     },
   ],
 };

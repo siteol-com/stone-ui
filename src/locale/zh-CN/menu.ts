@@ -8,5 +8,5 @@ export default {
   'menu.plat.tenant': '租户',
   'menu.plat.permission': '权限',
   'menu.plat.router': '路由',
-  'menu.plat.responseCode': '响应码',
+  'menu.plat.response': '响应码',
 };

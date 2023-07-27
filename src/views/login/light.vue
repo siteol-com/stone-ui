@@ -3,11 +3,6 @@
     <div class="head">
       <NavBar :type="false" />
     </div>
-    <ul class="line">
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
     <div class="login" :class="{ login_run: tenant.alias }">
       <div v-if="tenant.alias" class="login_div">
         <div class="logo">
@@ -88,19 +83,20 @@ onMounted(() => {
   height: 100vh;
   position: relative;
   overflow: hidden;
+  background-color: var(--color-fill-1);
   * {
     transition: all 0.4s ease;
   }
   .login {
     position: absolute;
-    width: 400px;
-    height: 350px;
-    left: calc(50% - 200px);
-    top: calc(50% - 175px);
-    padding: 20px 25px;
-    border-radius: 15px;
-    background-color: rgba(242, 244, 245, 0.45);
+    width: 460px;
+    height: 100vh;
+    left: calc(50% - 230px);
+    top: 0;
+    padding: 50px;
+    background-color: var(--color-bg-1);
     display: flex;
+    align-items: center;
     transform: scale(0.8);
     &_run {
       transform: scale(1);
@@ -140,33 +136,6 @@ onMounted(() => {
       }
     }
   }
-
-  .line {
-    list-style: none;
-    display: block;
-    position: relative;
-    width: calc(100vw + 50px);
-    height: 500px;
-    overflow: hidden;
-    opacity: 0;
-    left: -25px;
-    top: -50vh;
-    margin: 0;
-    padding: 0;
-    transform: skewY(2deg);
-    animation: hpin 20s ease-in-out infinite;
-    background-image: linear-gradient(-45deg, #fd853a, #ffc692);
-  }
-
-  .line li {
-    position: absolute;
-    width: 33%;
-    height: 33.33%;
-    left: 33%;
-    top: 33%;
-    background-image: linear-gradient(95deg, #fd853a, #ffc692);
-    animation: spin 7s ease-in-out infinite;
-  }
   .footer {
     position: fixed;
     bottom: 15px;
@@ -177,7 +146,6 @@ onMounted(() => {
 .light.load {
   .line {
     opacity: 0.9;
-    top: calc(50vh - 270px);
   }
 }
 .light.lineIn {
@@ -193,14 +161,6 @@ onMounted(() => {
   }
   .line li:nth-child(3) {
     top: 67%;
-  }
-}
-.light.dark {
-  .line {
-    opacity: 0.7;
-  }
-  .login {
-    background-color: rgba(0, 0, 0, 0.3);
   }
 }
 </style>

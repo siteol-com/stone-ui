@@ -12,7 +12,9 @@
       <transition name="breadcrumb">
         <a-breadcrumb v-if="breadList.list[0]">
           <a-breadcrumb-item> <icon-apps /> </a-breadcrumb-item>
-          <a-breadcrumb-item v-for="(item, index) in breadList.list" :key="index">{{ $t(item.meta?.locale ? item.meta?.locale : '') }}</a-breadcrumb-item>
+          <a-breadcrumb-item v-for="(item, index) in breadList.list" :key="index">{{
+            $t(item.meta?.locale ? item.meta?.locale : '')
+          }}</a-breadcrumb-item>
         </a-breadcrumb>
       </transition>
     </div>
@@ -66,7 +68,12 @@
             </a-badge>
           </div>
         </a-tooltip>
-        <a-popover trigger="click" :arrow-style="{ display: 'none' }" :content-style="{ padding: 0, width: '400px' }" content-class="message-popover">
+        <a-popover
+          trigger="click"
+          :arrow-style="{ display: 'none' }"
+          :content-style="{ padding: 0, width: '400px' }"
+          content-class="message-popover"
+        >
           <div ref="refBtn" class="ref-btn"></div>
           <template #content>
             <message-box />
@@ -74,7 +81,9 @@
         </a-popover>
       </li>
       <li>
-        <a-tooltip :content="theme === 'light' ? $t('settings.navbar.theme.toDark') : $t('settings.navbar.theme.toLight')">
+        <a-tooltip
+          :content="theme === 'light' ? $t('settings.navbar.theme.toDark') : $t('settings.navbar.theme.toLight')"
+        >
           <a-button class="nav-btn" :shape="'circle'" @click="handleToggleTheme">
             <template #icon>
               <icon-moon-fill v-if="theme === 'dark'" />
@@ -220,7 +229,7 @@ if (props.type) {
     nextTick(() => {
       setTimeout(() => {
         breadList.list = matched.filter((item) => item.meta);
-      }, 500);
+      }, 650);
     });
   }, true);
 }
