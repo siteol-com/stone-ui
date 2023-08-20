@@ -12,6 +12,12 @@
           <a-form-item field="url" :label="$t('plat.router.url')">
             <span class="formSpan">{{ formData.url }}</span>
           </a-form-item>
+          <a-form-item field="printReq" :label="$t('plat.router.printReq')">
+            <span class="formSpan">{{ dictMap.printLog[formData.printReq] }}</span>
+          </a-form-item>
+          <a-form-item field="printRes" :label="$t('plat.router.printRes')">
+            <span class="formSpan">{{ dictMap.printLog[formData.printRes] }}</span>
+          </a-form-item>
           <a-form-item field="type" :label="$t('plat.router.type')">
             <span class="formSpan">{{ dictMap.routerType[formData.type] }}</span>
             <template #extra>

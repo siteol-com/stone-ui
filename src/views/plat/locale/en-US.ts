@@ -16,6 +16,8 @@ export default {
   'plat.router.url.sc': 'Enter Url and support fuzzy queries',
   'plat.router.url.place': 'Enter routerUrl',
   'plat.router.url.format': 'RouterUrl starts with /, allowing letters,numbers and / combinations',
+  'plat.router.printReq': 'ReqLog',
+  'plat.router.printRes': 'ResLog',
   'plat.router.type': 'RouterType',
   'plat.router.type.tips': 'Prompt: Authorizing routes requires logging in and having permissions',
   // 响应码相关

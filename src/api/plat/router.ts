@@ -7,6 +7,8 @@ export type PlatRouter = {
   url: string; // 路由地址，后端访问URL 后端不再URL中携带参数，统一Post处理内容
   serviceCode: string; // 业务编码（字典），为接口分组
   type: string; // 免授权路由 1 授权 2 免授权（系统启动开放免授权）
+  printReq: string; // 请求日志打印 1 不打印 2 打印
+  printRes: string; // 响应日志打印 1 不打印 2 打印
 };
 export function routerInit() {
   return ref<PlatRouter>({
@@ -15,6 +17,8 @@ export function routerInit() {
     url: '',
     serviceCode: '',
     type: '',
+    printReq: '',
+    printRes: '',
   });
 }
 

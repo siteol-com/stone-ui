@@ -55,6 +55,32 @@
             />
           </a-form-item>
           <a-form-item
+            field="printReq"
+            :label="$t('plat.router.printReq')"
+            :rules="[{ required: true, message: $t('common.rule.required') }]"
+          >
+            <a-select
+              v-model="formData.printReq"
+              :options="dict.printLog"
+              allow-clear
+              allow-search
+              :placeholder="$t('common.select.all')"
+            />
+          </a-form-item>
+          <a-form-item
+            field="printRes"
+            :label="$t('plat.router.printRes')"
+            :rules="[{ required: true, message: $t('common.rule.required') }]"
+          >
+            <a-select
+              v-model="formData.printRes"
+              :options="dict.printLog"
+              allow-clear
+              allow-search
+              :placeholder="$t('common.select.all')"
+            />
+          </a-form-item>
+          <a-form-item
             field="type"
             :label="$t('plat.router.type')"
             :rules="[{ required: true, message: $t('common.rule.required') }]"

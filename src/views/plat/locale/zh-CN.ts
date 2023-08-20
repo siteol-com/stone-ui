@@ -16,6 +16,8 @@ export default {
   'plat.router.url.sc': '输入路由地址，支持模糊查询',
   'plat.router.url.place': '请输入路由地址',
   'plat.router.url.format': '路由地址以 / 开头，允许字母、数字和 / 组合',
+  'plat.router.printReq': '请求日志',
+  'plat.router.printRes': '响应日志',
   'plat.router.type': '路由类型',
   'plat.router.type.tips': '提示：授权路由需要登陆且具备权限方可访问',
   // 响应码相关

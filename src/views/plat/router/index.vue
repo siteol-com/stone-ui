@@ -86,6 +86,12 @@
       >
         <template #serviceCode="{ record }"> {{ dictMap.serviceCode[record.serviceCode] }} </template>
         <template #type="{ record }"> {{ dictMap.routerType[record.type] }} </template>
+        <template #printReq="{ record }">
+          <a-tag :color="colorTag[record.printReq]">{{ dictMap.printLog[record.printReq] }}</a-tag>
+        </template>
+        <template #printRes="{ record }">
+          <a-tag :color="colorTag[record.printRes]">{{ dictMap.printLog[record.printRes] }}</a-tag>
+        </template>
         <template #operations="{ record }">
           <a-space>
             <a-tooltip :content="$t('common.button.view')" :mini="true">
@@ -144,6 +150,8 @@ const { popup, openPop } = usePopup();
 // 当前语言
 const { currentLocale } = useLocale();
 const { t } = useI18n();
+// 初始化Tag颜色
+const colorTag: any = { '1': 'green', '2': 'red' };
 // 初始化查询对象
 const initQuery = () => {
   return {
@@ -168,6 +176,8 @@ const columns = computed(() => [
   { title: t('plat.router.url'), dataIndex: 'url' },
   { title: t('plat.serviceCode'), dataIndex: 'serviceCode', slotName: 'serviceCode' },
   { title: t('plat.router.type'), dataIndex: 'type', slotName: 'type' },
+  { title: t('plat.router.printReq'), dataIndex: 'printReq', slotName: 'printReq' },
+  { title: t('plat.router.printRes'), dataIndex: 'printRes', slotName: 'printRes' },
   { title: t('common.table.oper'), slotName: 'operations', width: 130 },
 ]);
 // 列表对象
@@ -228,15 +238,16 @@ async function routerDelete() {
   }
 }
 // 初始化字典对象
-const dict = ref({ serviceCode: [], routerType: [] });
+const dict = ref({ serviceCode: [], routerType: [], printLog: [] });
 const dictMap = ref({
   serviceCode: {} as any,
   routerType: {} as any,
+  printLog: {} as any,
 });
 // 查询字典列表
 async function getDictList() {
   // 指定字典Key
-  await dictList({ groupKeys: ['serviceCode', 'routerType'] }).then((r) => {
+  await dictList({ groupKeys: ['serviceCode', 'routerType', 'printLog'] }).then((r) => {
     dict.value = r.data.list;
     dictMap.value = r.data.map;
   });
