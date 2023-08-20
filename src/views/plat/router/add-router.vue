@@ -10,6 +10,19 @@
         @submit="handleSubmit"
       >
         <a-form-item
+          field="serviceCode"
+          :label="$t('plat.serviceCode')"
+          :rules="[{ required: true, message: $t('common.rule.required') }]"
+        >
+          <a-select
+            v-model="formData.serviceCode"
+            :options="dict.serviceCode"
+            allow-clear
+            allow-search
+            :placeholder="$t('common.select.all')"
+          />
+        </a-form-item>
+        <a-form-item
           field="name"
           :label="$t('plat.router.name')"
           :rules="[{ required: true, message: $t('common.rule.required') }]"
@@ -39,19 +52,6 @@
             allow-clear
             show-word-limit
             :placeholder="$t('plat.router.url.place')"
-          />
-        </a-form-item>
-        <a-form-item
-          field="serviceCode"
-          :label="$t('plat.serviceCode')"
-          :rules="[{ required: true, message: $t('common.rule.required') }]"
-        >
-          <a-select
-            v-model="formData.serviceCode"
-            :options="dict.serviceCode"
-            allow-clear
-            allow-search
-            :placeholder="$t('common.select.all')"
           />
         </a-form-item>
         <a-form-item

@@ -3,14 +3,14 @@
     <a-col :span="12">
       <a-spin :loading="loading">
         <a-form class="form" :model="formData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }">
+          <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
+            <span class="formSpan">{{ dictMap.serviceCode[formData.serviceCode] }}</span>
+          </a-form-item>
           <a-form-item field="name" :label="$t('plat.router.name')">
             <span class="formSpan">{{ formData.name }}</span>
           </a-form-item>
           <a-form-item field="url" :label="$t('plat.router.url')">
             <span class="formSpan">{{ formData.url }}</span>
-          </a-form-item>
-          <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
-            <span class="formSpan">{{ dictMap.serviceCode[formData.serviceCode] }}</span>
           </a-form-item>
           <a-form-item field="type" :label="$t('plat.router.type')">
             <span class="formSpan">{{ dictMap.routerType[formData.type] }}</span>
