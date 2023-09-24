@@ -1,72 +1,67 @@
 <template>
   <div class="container" :class="{ 's-pop': popup.pop }">
     <a-card class="general-card s-list">
-      <a-row>
-        <a-col :flex="1">
-          <a-form :model="query" :label-col-props="{ span: 7 }" :wrapper-col-props="{ span: 17 }" label-align="left">
-            <a-row :gutter="16">
-              <a-col :span="8">
-                <a-form-item field="code" :label="$t('plat.response.code')">
-                  <a-input v-model="query.code" allow-clear :placeholder="$t('plat.response.code.sc')" />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
-                  <a-select
-                    v-model="query.serviceCode"
-                    :options="dict.serviceCode"
-                    allow-clear
-                    allow-search
-                    :placeholder="$t('common.select.all')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item field="responseType" :label="$t('plat.response.type')">
-                  <a-select
-                    v-model="query.responseType"
-                    :options="dict.responseType"
-                    allow-clear
-                    allow-search
-                    :placeholder="$t('common.select.all')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-space>
-                  <a-button
-                    type="primary"
-                    status="danger"
-                    @click="openPop('add', 0, $t('plat.response.add'), $t('plat.response.add.sub'))"
-                  >
-                    <template #icon>
-                      <icon-plus />
-                    </template>
-                    {{ $t('common.button.create') }}
-                  </a-button>
-                </a-space>
-              </a-col>
-              <a-col :span="16" style="display: flex; align-items: center; justify-content: end">
-                <a-space>
-                  <a-button type="primary" @click="search">
-                    <template #icon>
-                      <icon-search />
-                    </template>
-                    {{ $t('common.button.search') }}
-                  </a-button>
-                  <a-button @click="resetQuery">
-                    <template #icon>
-                      <icon-refresh />
-                    </template>
-                    {{ $t('common.button.reset') }}
-                  </a-button>
-                </a-space>
-              </a-col>
-            </a-row>
-          </a-form>
-        </a-col>
-        <a-divider />
-      </a-row>
+      <a-form :model="query" label-align="left" layout="vertical">
+        <a-row :gutter="20">
+          <a-col :span="8">
+            <a-form-item field="code" :label="$t('plat.response.code')">
+              <a-input v-model="query.code" allow-clear :placeholder="$t('plat.response.code.sc')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
+              <a-select
+                v-model="query.serviceCode"
+                :options="dict.serviceCode"
+                allow-clear
+                allow-search
+                :placeholder="$t('common.select.all')"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item field="responseType" :label="$t('plat.response.type')">
+              <a-select
+                v-model="query.responseType"
+                :options="dict.responseType"
+                allow-clear
+                allow-search
+                :placeholder="$t('common.select.all')"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col :span="24" class="doBtn">
+            <a-space>
+              <a-tooltip :content="$t('common.button.create')" :mini="true">
+                <a-button
+                  type="primary"
+                  status="danger"
+                  @click="openPop('add', 0, $t('plat.response.add'), $t('plat.response.add.sub'))"
+                >
+                  <template #icon>
+                    <icon-plus />
+                  </template>
+                </a-button>
+              </a-tooltip>
+              <a-tooltip :content="$t('common.button.search')" :mini="true">
+                <a-button type="primary" @click="search">
+                  <template #icon>
+                    <icon-search />
+                  </template>
+                </a-button>
+              </a-tooltip>
+              <a-tooltip :content="$t('common.button.reset')" :mini="true">
+                <a-button @click="resetQuery">
+                  <template #icon>
+                    <icon-refresh />
+                  </template>
+                </a-button>
+              </a-tooltip>
+            </a-space>
+          </a-col>
+        </a-row>
+      </a-form>
+      <a-divider />
       <!--表格，吸顶和滚动条不可同时使用 -->
       <a-table
         :bordered="false"
@@ -118,7 +113,7 @@
       <get-response v-if="popup.get" :dict-map="dictMap" :popup="popup" />
     </a-card>
     <!-- 刪除确认-->
-    <a-modal v-model:visible="delItem.delConfirm" :title="t('plat.response.del')" :on-before-ok="responseDelete">
+    <a-modal v-model:visible="delItem.delConfirm" :title="$t('plat.response.del')" @before-ok="responseDelete">
       <div>{{ t('plat.response.del.tips') }}</div>
     </a-modal>
   </div>
@@ -256,4 +251,10 @@ watch(currentLocale, (n, o) => {
     init();
   }
 });
+</script>
+
+<script lang="ts">
+export default {
+  name: 'PlatResponse',
+};
 </script>

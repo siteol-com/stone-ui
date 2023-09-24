@@ -76,7 +76,7 @@
             </a-upload>
           </a-space>
         </a-col>
-        <a-col :span="12" style="display: flex; align-items: center; justify-content: end">
+        <a-col :span="12" class="doBtn">
           <a-button>
             <template #icon>
               <icon-download />

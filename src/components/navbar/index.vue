@@ -20,13 +20,26 @@
     </div>
     <ul class="right-side">
       <li v-if="type">
-        <a-tooltip :content="$t('settings.search')">
-          <a-button class="nav-btn" :shape="'circle'">
-            <template #icon>
-              <icon-search />
-            </template>
-          </a-button>
+        <a-tooltip :content="$t('settings.navbar.alerts')">
+          <div class="message-box-trigger">
+            <a-badge :count="9" dot>
+              <a-button class="nav-btn" :shape="'circle'" @click="setPopoverVisible">
+                <icon-notification />
+              </a-button>
+            </a-badge>
+          </div>
         </a-tooltip>
+        <a-popover
+          trigger="click"
+          :arrow-style="{ display: 'none' }"
+          :content-style="{ padding: 0, width: '400px' }"
+          content-class="message-popover"
+        >
+          <div ref="refBtn" class="ref-btn"></div>
+          <template #content>
+            <message-box />
+          </template>
+        </a-popover>
       </li>
       <li>
         <a-tooltip :content="isFullscreen ? $t('settings.navbar.screen.toExit') : $t('settings.navbar.screen.toFull')">
@@ -57,28 +70,6 @@
             </a-doption>
           </template>
         </a-dropdown>
-      </li>
-      <li v-if="type">
-        <a-tooltip :content="$t('settings.navbar.alerts')">
-          <div class="message-box-trigger">
-            <a-badge :count="9" dot>
-              <a-button class="nav-btn" :shape="'circle'" @click="setPopoverVisible">
-                <icon-notification />
-              </a-button>
-            </a-badge>
-          </div>
-        </a-tooltip>
-        <a-popover
-          trigger="click"
-          :arrow-style="{ display: 'none' }"
-          :content-style="{ padding: 0, width: '400px' }"
-          content-class="message-popover"
-        >
-          <div ref="refBtn" class="ref-btn"></div>
-          <template #content>
-            <message-box />
-          </template>
-        </a-popover>
       </li>
       <li>
         <a-tooltip
@@ -158,7 +149,7 @@ import useLocale from '@/hooks/locale';
 import useUser from '@/hooks/user';
 import MessageBox from '../message-box/index.vue';
 
-// 顶部导航根据入参读取
+// 入参读取
 const props = defineProps({
   type: {
     type: Boolean,
@@ -229,7 +220,7 @@ if (props.type) {
     nextTick(() => {
       setTimeout(() => {
         breadList.list = matched.filter((item) => item.meta);
-      }, 650);
+      }, 350);
     });
   }, true);
 }
@@ -286,15 +277,16 @@ onUnmounted(() => {
 }
 
 .center-side {
-  width: calc(100% - 455px);
+  width: calc(100% - 405px);
   padding-left: 20px;
   display: flex;
 }
 
 .right-side {
   display: flex;
+  justify-content: right;
   padding: 0 15px;
-  width: 395px;
+  width: 345px;
   list-style: none;
   :deep(.locale-select) {
     border-radius: 20px;
@@ -329,7 +321,6 @@ onUnmounted(() => {
     background: transparent;
   }
   .right-side {
-    justify-content: right;
     width: 100%;
   }
 }

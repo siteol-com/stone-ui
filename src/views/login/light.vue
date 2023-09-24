@@ -7,6 +7,7 @@
       <div v-if="tenant.alias" class="login_div">
         <div class="logo">
           <img :src="tenant.logo + (theme === 'dark' ? '-dark' : '')" />
+          <img class="lruner" :src="tenant.logo + (theme === 'dark' ? '-dark' : '')" />
         </div>
         <div class="title">{{ tenant.name }}</div>
         <LoginForm :tenant-alias="tenant.alias" />
@@ -107,10 +108,20 @@ onMounted(() => {
         width: 240px;
         height: 65px;
         margin: 5px auto;
+        position: relative;
         img {
           display: block;
           width: 100%;
           height: 100%;
+          &.lruner {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            opacity: 0.6;
+            transform: scale(1);
+            animation: bili 1s linear infinite;
+          }
         }
       }
       .title {

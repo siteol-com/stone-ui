@@ -1,33 +1,43 @@
 <template>
-  <a-row :gutter="16">
-    <a-col :span="12">
-      <a-spin :loading="loading">
-        <a-form class="form" :model="formData" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }">
-          <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
-            <span class="formSpan">{{ dictMap.serviceCode[formData.serviceCode] }}</span>
-          </a-form-item>
-          <a-form-item field="name" :label="$t('plat.router.name')">
-            <span class="formSpan">{{ formData.name }}</span>
-          </a-form-item>
-          <a-form-item field="url" :label="$t('plat.router.url')">
-            <span class="formSpan">{{ formData.url }}</span>
-          </a-form-item>
-          <a-form-item field="printReq" :label="$t('plat.router.printReq')">
-            <span class="formSpan">{{ dictMap.printLog[formData.printReq] }}</span>
-          </a-form-item>
-          <a-form-item field="printRes" :label="$t('plat.router.printRes')">
-            <span class="formSpan">{{ dictMap.printLog[formData.printRes] }}</span>
-          </a-form-item>
+  <a-spin :loading="loading">
+    <a-form class="form" label-align="left" layout="vertical" :model="formData">
+      <a-row :gutter="20">
+        <a-col :span="12">
           <a-form-item field="type" :label="$t('plat.router.type')">
             <span class="formSpan">{{ dictMap.routerType[formData.type] }}</span>
             <template #extra>
               <div>{{ $t('plat.router.type.tips') }}</div>
             </template>
           </a-form-item>
-        </a-form>
-      </a-spin>
-    </a-col>
-  </a-row>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
+            <span class="formSpan">{{ dictMap.serviceCode[formData.serviceCode] }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="name" :label="$t('plat.router.name')">
+            <span class="formSpan">{{ formData.name }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="url" :label="$t('plat.router.url')">
+            <span class="formSpan">{{ formData.url }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="printReq" :label="$t('plat.router.printReq')">
+            <span class="formSpan">{{ dictMap.printLog[formData.printReq] }}</span>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item field="printRes" :label="$t('plat.router.printRes')">
+            <span class="formSpan">{{ dictMap.printLog[formData.printRes] }}</span>
+          </a-form-item>
+        </a-col>
+      </a-row>
+    </a-form>
+  </a-spin>
 </template>
 
 <script lang="ts" setup>
@@ -37,7 +47,7 @@ import { routerGet } from '@/api/plat/router';
 import { PopUp } from '@/hooks/popup';
 // 加载中变量
 const { loading, setLoading } = useLoading(true);
-// 顶部导航根据入参读取
+// 入参读取
 const props = defineProps({
   dictMap: {
     type: Object,

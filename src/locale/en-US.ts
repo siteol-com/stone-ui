@@ -25,13 +25,15 @@ import locale500 from '@/views/exception/500/locale/en-US';
 
 import localeUserInfo from '@/views/user/info/locale/en-US';
 import localeUserSetting from '@/views/user/setting/locale/en-US';
-import plat from '@/views/plat/locale/en-US'; // 平台国际化
+
 import common from './en-US/common'; // 公共国际化
 import menu from './en-US/menu'; // 菜单国际化
+import plat from './en-US/plat'; // 平台国际化
 
 import localeSettings from './en-US/settings';
 
 export default {
+  /** 
   'menu.dashboard': 'Dashboard',
   'menu.server.dashboard': 'Dashboard-Server',
   'menu.server.workplace': 'Workplace-Server',
@@ -46,7 +48,8 @@ export default {
   'menu.arcoWebsite': 'Arco Design',
   'menu.faq': 'FAQ',
   'navbar.docs': 'Docs',
-  'navbar.action.locale': 'Switch to English',
+  'navbar.action.locale': 'Switch to English', 
+  */
   ...localeSettings,
   ...localeMessageBox,
   ...localeLogin,

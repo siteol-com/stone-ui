@@ -1,6 +1,14 @@
 <template>
   <a-layout class="layout" :class="{ mobile: appStore.hideMenu }">
-    <a-layout-sider class="layout-sider" breakpoint="xl" :collapsed="collapsed" :collapsible="true" :width="menuWidth" :hide-trigger="true" @collapse="setCollapsed">
+    <a-layout-sider
+      class="layout-sider"
+      breakpoint="xl"
+      :collapsed="collapsed"
+      :collapsible="true"
+      :width="menuWidth"
+      :hide-trigger="true"
+      @collapse="setCollapsed"
+    >
       <div class="logo-wrapper" :class="{ collapsed: collapsed }">
         <div class="logo">
           <img :src="collapsed ? tenant.icon : tenant.logo + (theme === 'dark' ? '-dark' : '')" />
@@ -42,10 +50,10 @@ const router = useRouter();
 const route = useRoute();
 const permission = usePermission();
 useResponsive(true);
-const navbarHeight = `60px`;
-const navbar = computed(() => appStore.navbar);
-const renderMenu = computed(() => appStore.menu && !appStore.topMenu);
-const hideMenu = computed(() => appStore.hideMenu);
+// const navbarHeight = `60px`;
+// const navbar = computed(() => appStore.navbar);
+// const renderMenu = computed(() => appStore.menu && !appStore.topMenu);
+// const hideMenu = computed(() => appStore.hideMenu);
 const footer = computed(() => appStore.footer);
 // 菜单宽度 - 收缩48 展开220
 const menuWidth = computed(() => {
@@ -76,9 +84,9 @@ watch(
   }
 );
 const drawerVisible = ref(false);
-const drawerCancel = () => {
-  drawerVisible.value = false;
-};
+// const drawerCancel = () => {
+//   drawerVisible.value = false;
+// };
 provide('toggleDrawerMenu', () => {
   drawerVisible.value = !drawerVisible.value;
 });

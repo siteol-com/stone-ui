@@ -1,14 +1,27 @@
 <template>
-  <a-row :gutter="16">
-    <a-col :span="12">
-      <a-spin :loading="loading">
-        <a-form
-          ref="routerMod"
-          :model="formData"
-          :label-col-props="{ span: 6 }"
-          :wrapper-col-props="{ span: 18 }"
-          @submit="handleSubmit"
-        >
+  <a-spin :loading="loading">
+    <a-form ref="routerMod" label-align="left" layout="vertical" :model="formData" @submit="handleSubmit">
+      <a-row :gutter="20">
+        <a-col :span="12">
+          <a-form-item
+            field="type"
+            :label="$t('plat.router.type')"
+            :rules="[{ required: true, message: $t('common.rule.required') }]"
+          >
+            <template #extra>
+              <div>{{ $t('plat.router.type.tips') }}</div>
+            </template>
+            <a-select
+              v-model="formData.type"
+              :options="dict.routerType"
+              allow-clear
+              allow-search
+              :disabled="true"
+              :placeholder="$t('common.select.all')"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
           <a-form-item
             field="serviceCode"
             :label="$t('plat.serviceCode')"
@@ -22,6 +35,8 @@
               :placeholder="$t('common.select.all')"
             />
           </a-form-item>
+        </a-col>
+        <a-col :span="12">
           <a-form-item
             field="name"
             :label="$t('plat.router.name')"
@@ -35,6 +50,8 @@
               :placeholder="$t('plat.router.name.place')"
             />
           </a-form-item>
+        </a-col>
+        <a-col :span="12">
           <a-form-item
             field="url"
             :label="$t('plat.router.url')"
@@ -54,6 +71,8 @@
               :placeholder="$t('plat.router.url.place')"
             />
           </a-form-item>
+        </a-col>
+        <a-col :span="12">
           <a-form-item
             field="printReq"
             :label="$t('plat.router.printReq')"
@@ -67,6 +86,8 @@
               :placeholder="$t('common.select.all')"
             />
           </a-form-item>
+        </a-col>
+        <a-col :span="12">
           <a-form-item
             field="printRes"
             :label="$t('plat.router.printRes')"
@@ -80,24 +101,10 @@
               :placeholder="$t('common.select.all')"
             />
           </a-form-item>
-          <a-form-item
-            field="type"
-            :label="$t('plat.router.type')"
-            :rules="[{ required: true, message: $t('common.rule.required') }]"
-          >
-            <template #extra>
-              <div>{{ $t('plat.router.type.tips') }}</div>
-            </template>
-            <a-select
-              v-model="formData.type"
-              :options="dict.routerType"
-              allow-clear
-              allow-search
-              :disabled="true"
-              :placeholder="$t('common.select.all')"
-            />
-          </a-form-item>
-          <a-form-item class="formbtn">
+        </a-col>
+        <a-col :span="24">
+          <a-divider />
+          <div class="formbtn">
             <a-space>
               <a-button type="primary" html-type="submit" :loading="loading">
                 <template #icon>
@@ -106,11 +113,11 @@
                 {{ $t('common.button.submit') }}
               </a-button>
             </a-space>
-          </a-form-item>
-        </a-form>
-      </a-spin>
-    </a-col>
-  </a-row>
+          </div>
+        </a-col>
+      </a-row>
+    </a-form>
+  </a-spin>
 </template>
 
 <script lang="ts" setup>
@@ -122,7 +129,7 @@ import { routerInit, routerEdit, routerGet } from '@/api/plat/router';
 const { loading, setLoading } = useLoading(false);
 // 表单数据初始化
 const formData = routerInit();
-// 顶部导航根据入参读取
+// 入参读取
 const props = defineProps({
   dict: {
     type: Object,

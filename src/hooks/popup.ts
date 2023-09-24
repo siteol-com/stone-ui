@@ -8,6 +8,7 @@ export interface PopUp {
   itemId: number;
   header: string | boolean;
   subHeader: string | boolean;
+  useObj: any; // 需要传递的对象
   closePop: () => any;
 }
 
@@ -31,17 +32,24 @@ export default function usePopup() {
       popup.header = '';
       popup.subHeader = '';
     },
+    useObj: {},
   });
-  // 打开弹层
-  const openPop = (openType: string, itemId: number, header: string, subHeader: string) => {
+  // 传递对象的打开模式
+  const openPopWithObj = (openType: string, itemId: number, header: string, subHeader: string, obj: any) => {
     popup.pop = true;
     (popup as any)[openType] = true;
     popup.itemId = itemId;
     popup.header = header;
     popup.subHeader = subHeader;
+    popup.useObj = obj;
+  };
+  // 打开弹层
+  const openPop = (openType: string, itemId: number, header: string, subHeader: string) => {
+    openPopWithObj(openType, itemId, header, subHeader, {});
   };
   return {
     popup,
     openPop,
+    openPopWithObj,
   };
 }

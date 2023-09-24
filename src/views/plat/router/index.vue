@@ -1,77 +1,72 @@
 <template>
   <div class="container" :class="{ 's-pop': popup.pop }">
     <a-card class="general-card s-list">
-      <a-row>
-        <a-col :flex="1">
-          <a-form :model="query" :label-col-props="{ span: 6 }" :wrapper-col-props="{ span: 18 }" label-align="left">
-            <a-row :gutter="16">
-              <a-col :span="8">
-                <a-form-item field="name" :label="$t('plat.router.name')">
-                  <a-input v-model="query.name" allow-clear :placeholder="$t('plat.router.name.sc')" />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item field="url" :label="$t('plat.router.url')">
-                  <a-input v-model="query.url" allow-clear :placeholder="$t('plat.router.url.sc')" />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
-                  <a-select
-                    v-model="query.serviceCode"
-                    :options="dict.serviceCode"
-                    allow-clear
-                    allow-search
-                    :placeholder="$t('common.select.all')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="8">
-                <a-form-item field="routerType" :label="$t('plat.router.type')">
-                  <a-select
-                    v-model="query.type"
-                    :options="dict.routerType"
-                    allow-clear
-                    allow-search
-                    :placeholder="$t('common.select.all')"
-                  />
-                </a-form-item>
-              </a-col>
-              <a-col :span="16" style="display: flex; align-items: center; justify-content: end">
-                <a-space>
-                  <a-button type="primary" @click="search">
-                    <template #icon>
-                      <icon-search />
-                    </template>
-                    {{ $t('common.button.search') }}
-                  </a-button>
-                  <a-button @click="resetQuery">
-                    <template #icon>
-                      <icon-refresh />
-                    </template>
-                    {{ $t('common.button.reset') }}
-                  </a-button>
-                </a-space>
-              </a-col>
-            </a-row>
-          </a-form>
-        </a-col>
-        <a-col :span="24">
-          <a-space>
-            <a-button
-              type="primary"
-              status="danger"
-              @click="openPop('add', 0, $t('plat.router.add'), $t('plat.router.add.sub'))"
-            >
-              <template #icon>
-                <icon-plus />
-              </template>
-              {{ $t('common.button.create') }}
-            </a-button>
-          </a-space>
-        </a-col>
-        <a-divider />
-      </a-row>
+      <a-form :model="query" label-align="left" layout="vertical">
+        <a-row :gutter="20">
+          <a-col :span="6">
+            <a-form-item field="name" :label="$t('plat.router.name')">
+              <a-input v-model="query.name" allow-clear :placeholder="$t('plat.router.name.sc')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="6">
+            <a-form-item field="url" :label="$t('plat.router.url')">
+              <a-input v-model="query.url" allow-clear :placeholder="$t('plat.router.url.sc')" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="6">
+            <a-form-item field="serviceCode" :label="$t('plat.serviceCode')">
+              <a-select
+                v-model="query.serviceCode"
+                :options="dict.serviceCode"
+                allow-clear
+                allow-search
+                :placeholder="$t('common.select.all')"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col :span="6">
+            <a-form-item field="routerType" :label="$t('plat.router.type')">
+              <a-select
+                v-model="query.type"
+                :options="dict.routerType"
+                allow-clear
+                allow-search
+                :placeholder="$t('common.select.all')"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col :span="24" class="doBtn">
+            <a-space>
+              <a-tooltip :content="$t('common.button.create')" :mini="true">
+                <a-button
+                  type="primary"
+                  status="danger"
+                  @click="openPop('add', 0, $t('plat.router.add'), $t('plat.router.add.sub'))"
+                >
+                  <template #icon>
+                    <icon-plus />
+                  </template>
+                </a-button>
+              </a-tooltip>
+              <a-tooltip :content="$t('common.button.search')" :mini="true">
+                <a-button type="primary" @click="search">
+                  <template #icon>
+                    <icon-search />
+                  </template>
+                </a-button>
+              </a-tooltip>
+              <a-tooltip :content="$t('common.button.reset')" :mini="true">
+                <a-button @click="resetQuery">
+                  <template #icon>
+                    <icon-refresh />
+                  </template>
+                </a-button>
+              </a-tooltip>
+            </a-space>
+          </a-col>
+        </a-row>
+      </a-form>
+      <a-divider />
       <!--表格，吸顶和滚动条不可同时使用 -->
       <a-table
         :bordered="false"
@@ -124,8 +119,8 @@
       <get-router v-if="popup.get" :dict-map="dictMap" :popup="popup" />
     </a-card>
     <!-- 刪除确认-->
-    <a-modal v-model:visible="delItem.delConfirm" :title="t('plat.router.del')" :on-before-ok="routerDelete">
-      <div>{{ t('plat.router.del.tips') }}</div>
+    <a-modal v-model:visible="delItem.delConfirm" :title="$t('plat.router.del')" :on-before-ok="routerDelete">
+      <div>{{ $t('plat.router.del.tips') }}</div>
     </a-modal>
   </div>
 </template>
@@ -268,4 +263,10 @@ watch(currentLocale, (n, o) => {
     init();
   }
 });
+</script>
+
+<script lang="ts">
+export default {
+  name: 'PlatRouter',
+};
 </script>

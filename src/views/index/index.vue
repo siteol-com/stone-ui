@@ -92,8 +92,8 @@ onMounted(() => {
         position: absolute;
         left: 0;
         top: -15px;
-        z-index: 999;
-        opacity: 0.6;
+        z-index: -1;
+        opacity: 0.4;
         transform: scale(1);
         animation: bili 1s linear infinite;
       }

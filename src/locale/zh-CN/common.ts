@@ -15,7 +15,8 @@ export default {
   'common.button.edit': '编辑',
   'common.button.delete': '删除',
   'common.button.submit': '提交',
-  'common.select.all': '全部',
+  'common.button.refresh': '刷新',
+  'common.select.all': '请选择',
   'common.table.oper': '操作',
   'common.rule.required': '该字段为必填字段',
 };

@@ -102,29 +102,124 @@ body {
     }
   }
 }
+.doBtn {
+  display: flex; align-items: center; justify-content: end
+}
+.arco-page-header{
+  position: sticky;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid var(--color-neutral-3);
+  margin-bottom: 30px;
+  background: var(--color-bg-2);
+  z-index: 100;
+  padding: 16px 0;
+}
+
+/* 树区域 */
+.treeE{
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  position: relative;
+  padding: 0!important;
+  .treeL {
+    width: 240px;
+    padding: 10px;
+    height: 100%;
+    position: relative;
+    background: var(--color-bg-2);
+    &::after{
+      transition:all .4s ease-in-out;
+      content: '';
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: var(--color-spin-layer-bg);
+      z-index: -1;
+      opacity: 0;
+    }
+    .treeLe{
+      margin-top: 5px;
+      height: calc(100% - 50px);
+      border-right: 1px solid var(--color-neutral-3);
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+  .treeR {
+    left: 0;
+    transition:all .4s ease-in-out;
+    height: 100%;
+    width: calc(100% - 240px);
+    padding: 0 15px 10px 10px;
+    overflow-y: auto;
+    position: relative;
+    background: var(--color-bg-2);
+    .treeBtn{
+      position: absolute;
+    z-index: 100;
+    top: 20px;
+    right: 10px
+    }
+  }
+  .treeRe{
+    background: var(--color-bg-2);
+    padding: 0 15px 10px 10px;
+    transition:all .4s ease-in-out;overflow-y: auto;
+    left: 100%;
+    position: absolute;z-index: 110;top: 0;opacity: 0;width: calc(100% - 240px); height: 100%;
+  }
+}
+.tree-pop{
+  .treeE{
+    .treeL {
+      &::after{
+        z-index: 100;
+        opacity: 1;
+      }
+    }
+    .treeR {
+      left: 25%;opacity: 0;
+    }
+    .treeRe{
+      left: 240px;opacity: 1;
+    }
+  }
+}
 
 /* 通用列表和item */
 .s-content{
   .s-list,.s-item{
-    transition:all .3s ease-in-out;left: 0;z-index:100;height: 100%;overflow-y: auto;
+    transition:all .4s ease-in-out;left: 0;z-index:100;height: 100%;overflow-y: auto;
   }
   .s-item{
     left: 100%;position: absolute;z-index: 110;top: 25px;opacity: 0;width: calc(100% - 50px);height: calc(100% - 50px);
     & > .arco-card-body {
       padding: 0 20px 20px;
     }
-    .arco-page-header{
-      position: sticky;
-      width: 100%;
-      top: 0;
-      border-bottom: 1px solid var(--color-neutral-3);
-      margin-bottom: 20px;
-      background: var(--color-bg-2);
-      z-index: 100;
-    }
   }
   .s-pop {
-    .s-list{left: -25%;opacity: 0;}
+    .s-list{left: 25%;opacity: 0;}
     .s-item{left: 25px;opacity: 1;}
   }
 } 
+
+.formbtn{
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: right;
+}
+.formBtnLine{margin: 20px 0}
+
+.joinPath {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}

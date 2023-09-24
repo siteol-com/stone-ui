@@ -15,7 +15,8 @@ export default {
   'common.button.edit': 'Edit',
   'common.button.delete': 'Delete',
   'common.button.submit': 'Submit',
-  'common.select.all': 'All',
+  'common.button.refresh': 'Refresh',
+  'common.select.all': 'Please Select',
   'common.table.oper': 'Operations',
   'common.rule.required': 'This field cannot be empty',
 };

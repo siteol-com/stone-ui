@@ -1,21 +1,15 @@
 <template>
-  <a-row :gutter="16">
-    <a-col :span="12">
-      <a-form
-        ref="responseAdd"
-        :loading="loading"
-        :model="formData"
-        :label-col-props="{ span: 6 }"
-        :wrapper-col-props="{ span: 18 }"
-        @submit="handleSubmit"
-      >
+  <a-form ref="responseAdd" label-align="left" layout="vertical" :model="formData" @submit="handleSubmit">
+    <a-row :gutter="20">
+      <a-col :span="12">
         <a-form-item field="code" :label="$t('plat.response.code')">
           <template #extra>
             <div>{{ $t('plat.response.code.tips') }}</div>
           </template>
           <a-input v-model="formData.code" disabled />
         </a-form-item>
-
+      </a-col>
+      <a-col :span="12">
         <a-form-item
           field="serviceCode"
           :label="$t('plat.serviceCode')"
@@ -32,7 +26,8 @@
             :placeholder="$t('common.select.all')"
           />
         </a-form-item>
-
+      </a-col>
+      <a-col :span="12">
         <a-form-item
           field="type"
           :label="$t('plat.response.type')"
@@ -49,7 +44,8 @@
             :placeholder="$t('common.select.all')"
           />
         </a-form-item>
-
+      </a-col>
+      <a-col :span="12">
         <a-form-item
           field="remark"
           :label="$t('plat.response.remark')"
@@ -63,7 +59,8 @@
             :placeholder="$t('plat.response.remark.place')"
           />
         </a-form-item>
-
+      </a-col>
+      <a-col :span="12">
         <a-form-item
           field="zhCn"
           :label="$t('plat.response.zhCn')"
@@ -77,7 +74,8 @@
             :placeholder="$t('plat.response.zhCn.place')"
           />
         </a-form-item>
-
+      </a-col>
+      <a-col :span="12">
         <a-form-item
           field="enUs"
           :label="$t('plat.response.enUs')"
@@ -91,8 +89,10 @@
             :placeholder="$t('plat.response.enUs.place')"
           />
         </a-form-item>
-
-        <a-form-item class="formbtn">
+      </a-col>
+      <a-col :span="24">
+        <a-divider />
+        <div class="formbtn">
           <a-space>
             <a-button type="primary" html-type="submit" :loading="loading">
               <template #icon>
@@ -101,10 +101,10 @@
               {{ $t('common.button.submit') }}
             </a-button>
           </a-space>
-        </a-form-item>
-      </a-form>
-    </a-col>
-  </a-row>
+        </div>
+      </a-col>
+    </a-row>
+  </a-form>
 </template>
 
 <script lang="ts" setup>
@@ -116,7 +116,7 @@ import { ResponseInit, responseAdd } from '@/api/plat/response';
 const { loading, setLoading } = useLoading(false);
 // 表单数据初始化
 const formData = ResponseInit();
-// 顶部导航根据入参读取
+// 入参读取
 const props = defineProps({
   dict: {
     type: Object,

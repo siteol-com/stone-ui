@@ -5,28 +5,27 @@ html, body{height: 100vh;width: 100vw;overflow: hidden;}
 .fade-enter-active,.fade-leave-active{transition:opacity 0.28s}
 .fade-enter,.fade-leave-active{opacity:0}
 /* fade-transform vue3 */
-.fade-transform-leave-active,.fade-transform-enter-active{transition:all 0.5s}
+.fade-transform-leave-active,.fade-transform-enter-active{transition:all 0.3s}
 .fade-transform-enter-from{opacity:0;transform:translateX(-30px)}
 .fade-transform-leave-to{opacity:0;transform:translateX(30px)}
 /* breadcrumb transition */
-.breadcrumb-enter-active,.breadcrumb-leave-active{transition:all .5s}
+.breadcrumb-enter-active,.breadcrumb-leave-active{transition:all .3s}
 .breadcrumb-enter-from{opacity:0;transform:translateX(-15px)}
 .breadcrumb-leave-to{opacity:0;transform:translateX(15px)}
 /* 布灵闪的动画效果 */
-@keyframes bili{25%{transform:scale(1.2);opacity:0.2}
-50%{transform:scale(1.4);opacity:0}
+@keyframes bili{25%{transform:scale(1.1);opacity:0.2}
+50%{transform:scale(1.2);opacity:0}
 75%{transform:scale(1);opacity:0}
 100%{transform:scale(1);opacity:0.4}}
 /* 闪烁 */
 @keyframes di{0%{opacity: 1;}50%{opacity: 0.5;}}
 /* 顶部进度条 */
-#nprogress .bar {background:rgb(253,133,58)!important;z-index:899!important}
-#nprogress .peg {box-shadow: 0 0 10px rgb(255, 0, 0), 0 0 5px rgb(78, 221, 34)!important}
+#nprogress .bar {background:#3491FA!important;z-index:899!important}
+#nprogress .peg {box-shadow: 0 0 10px #9FD4FD, 0 0 5px #206CCF!important}
 /* 各类宽度 */
 .m10s{margin: 10px 0;}
 .c500{width: 500px!important;}
 .c600{width: 600px!important;}
-.formbtn{margin-top: 10px;}
 .formSpan{padding: 5px 12px;
     line-height: 20px;
     border: 1px solid var(--color-fill-3);

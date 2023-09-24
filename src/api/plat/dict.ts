@@ -5,4 +5,7 @@ export function dictList(req: any) {
   return axios.post('/plat/dict/list', req);
 }
 
-export function getDictPage(req: any) {}
+export function getDictPage(req: any) {
+  // Wait
+  return axios.post('/plat/dict/page', req);
+}

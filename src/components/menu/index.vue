@@ -118,7 +118,17 @@ export default defineComponent({
     };
 
     return () => (
-      <a-menu mode={topMenu.value ? 'horizontal' : 'vertical'} v-model:collapsed={collapsed.value} v-model:open-keys={openKeys.value} auto-open={false} selected-keys={selectedKey.value} auto-open-selected={true} level-indent={34} style="height: 100%;width:100%;" onCollapse={setCollapse}>
+      <a-menu
+        mode={topMenu.value ? 'horizontal' : 'vertical'}
+        v-model:collapsed={collapsed.value}
+        v-model:open-keys={openKeys.value}
+        auto-open={false}
+        selected-keys={selectedKey.value}
+        auto-open-selected={true}
+        level-indent={34}
+        style="height: 100%;width:100%;"
+        onCollapse={setCollapse}
+      >
         {renderSubMenu()}
       </a-menu>
     );
