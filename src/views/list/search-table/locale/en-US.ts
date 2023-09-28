@@ -26,8 +26,6 @@ export default {
   'searchTable.columns.count': 'Count',
   'searchTable.columns.createdTime': 'CreatedTime',
   'searchTable.columns.status': 'Status',
-  
-
   // size
   'searchTable.size.mini': 'mini',
   'searchTable.size.small': 'small',

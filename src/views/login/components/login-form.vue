@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, defineProps } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/store';
 import { useStorage } from '@vueuse/core';

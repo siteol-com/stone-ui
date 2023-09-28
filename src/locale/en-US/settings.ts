@@ -18,7 +18,8 @@ export default {
   'settings.otherSettings': 'Other Settings',
   'settings.colorWeak.in': 'Color Weak',
   'settings.colorWeak.out': 'Color Mode',
-  'settings.alertContent': 'After the configuration is only temporarily effective, if you want to really affect the project, click the "Copy Settings" button below and replace the configuration in settings.json.',
+  'settings.alertContent':
+    'After the configuration is only temporarily effective, if you want to really affect the project, click the "Copy Settings" button below and replace the configuration in settings.json.',
   'settings.copySettings': 'Copy Settings',
   'settings.copySettings.message': 'Copy succeeded, please paste to file src/settings.json.',
   'settings.close': 'Close',

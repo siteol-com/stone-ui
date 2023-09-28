@@ -138,7 +138,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, reactive, inject, onUnmounted, nextTick } from 'vue';
+import { computed, ref, reactive, onUnmounted, nextTick } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import { useDark, useToggle, useFullscreen } from '@vueuse/core';
 import { useAppStore, useUserStore } from '@/store';
