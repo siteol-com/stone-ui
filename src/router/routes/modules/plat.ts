@@ -10,30 +10,30 @@ const PLAT: AppRouteRecordRaw = {
   children: [
     {
       path: 'tenant', // 租户
-      name: 'platTenant',
+      name: 'PlatTenant',
       component: () => import('@/views/plat/tenant/index.vue'),
       meta: { locale: 'menu.plat.tenant', requiresAuth: false },
     },
     {
       path: 'dept', // 部门管理
-      name: 'platDept',
+      name: 'PlatDept',
       component: () => import('@/views/plat/dept/index.vue'),
       meta: { locale: 'menu.plat.dept', requiresAuth: false },
     },
     {
       path: 'role', // 角色管理
-      name: 'platRole',
+      name: 'PlatRole',
       component: () => import('@/views/plat/role/index.vue'),
       meta: { locale: 'menu.plat.role', requiresAuth: false },
     },
     {
       path: 'account', // 账号管理
-      name: 'platAccount',
+      name: 'PlatAccount',
       component: () => import('@/views/plat/account/index.vue'),
       meta: { locale: 'menu.plat.account', requiresAuth: false },
     },
     {
-      path: 'permission', // 权限
+      path: 'permission', // 权限 ↓ 超管可见
       name: 'PlatPermission',
       component: () => import('@/views/plat/permission/index.vue'),
       meta: { locale: 'menu.plat.permission', requiresAuth: false },
